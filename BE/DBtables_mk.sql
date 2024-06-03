@@ -79,8 +79,7 @@ CREATE TABLE IF NOT EXISTS `map`.`users` (
   `username` VARCHAR(50) NOT NULL,
   `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`student_id`),
-  UNIQUE INDEX `username` (`user_id` ASC) VISIBLE,
-  UNIQUE INDEX `email` (`username` ASC) VISIBLE)
+  UNIQUE INDEX `USERID` (`user_id` ASC) VISIBLE,
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
