@@ -27,7 +27,7 @@ export default function MenuBar() {
           <button>로그인</button>
         </Link>
         <Link to="/register">
-            <button>회원가입</button>
+          <button>회원가입</button>
         </Link>
       </div>
     </div>
