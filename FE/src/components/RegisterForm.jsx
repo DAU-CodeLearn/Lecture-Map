@@ -88,16 +88,43 @@ export default function RegisterForm() {
   };
 
   const handleIdCheck = () => {
-    fetch(`http://localhost:8080/checkId?id=${id}`)
-      .then((response) => response.json())
+    const textbox = {
+      id: id
+    }
+
+    fetch("http://localhost:8080/checkId", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(textbox),
+    })
+      .then((res) => {
+        if(res.status == 200) {
+          return res.json();
+        }
+        else {
+          return null;
+        }
+      })
       .then((data) => {
-        if (data.available) {
+        console.log(data);
+        if(data != null) {
           alert("사용 가능한 아이디입니다.");
           setIsIdAvailable(true);
-        } else {
+        }
+        else {
           alert("이미 사용 중인 아이디입니다.");
           setIsIdAvailable(false);
         }
+        // if (data.token) {
+        //   alert("사용 가능한 아이디입니다.");
+        //   setIsIdAvailable(true);
+        // } else {
+        //   console.log(data);
+        //   alert("이미 사용 중인 아이디입니다.");
+        //   setIsIdAvailable(false);
+        // }
       })
       .catch((error) => console.error("Error:", error));
   };
@@ -145,9 +172,29 @@ export default function RegisterForm() {
       },
       body: JSON.stringify(textbox),
     })
-      .then((response) => response.text())
-      .then((data) => console.log(data))
-      .catch((error) => console.error("Error:", error));
+    .then((res) => {
+      if(res.status == 201) {
+        return res.text();
+      }
+      else {
+        return null;
+      }
+    })
+    .then((data) => {
+      console.log(data);
+      if(data != null) {
+        alert("회원가입 성공.");
+        setIsIdAvailable(true);
+      }
+      else {
+        alert("이미 가입된 학번입니다.");
+        setIsIdAvailable(false);
+      }
+    })
+      .catch((error) => {
+        alert("실패");
+        console.error("Error:", error)
+      });
   };
 
   return (
