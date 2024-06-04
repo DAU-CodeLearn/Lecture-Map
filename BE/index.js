@@ -15,11 +15,10 @@ app.use(express.json());
 app.use('/api/auth',authRoutes);
 //app.use('/api/classrooms', classroomRoutes);
 
-// /login 엔드포인트 추가
+// 엔드포인트 추가
 app.post('/login', authRoutes);
-
-// /register 엔드포인트 추가
 app.post('/register', authRoutes);
+app.post('/checkId', authRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

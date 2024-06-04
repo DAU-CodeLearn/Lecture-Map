@@ -54,7 +54,22 @@ const loginUser = async (req, res) => {
 };
 // 토큰을 HTTP헤더에 넣을지 쿠키에 넣을지 정해서 작업을 해야함 (헤더의 경우 클라이언트측에서 쿠키의 경우 서버와 헤더 둘다)
 
+const checkId = async (req, res) => {
+  const { userId } = req.body;
+
+  try{
+    const user = await User.findOne({ userId });
+    if(user){
+      return res.status(401).json({ message: '아이디가 중복입니다. 다른 아이디를 입력해주세요.'});
+    }
+    res.status(200).json({ message: '사용 가능한 아이디입니다.' });
+  } catch(err){
+    res.status(500).json({ error: err.message });
+  }
+};
+
 module.exports = {
   registerUser,
-  loginUser
+  loginUser,
+  checkId
 };
