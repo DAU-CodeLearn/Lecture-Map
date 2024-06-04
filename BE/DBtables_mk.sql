@@ -1,19 +1,3 @@
--- MySQL Workbench Forward Engineering
-
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
-
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
--- -----------------------------------------------------
--- Schema map
--- -----------------------------------------------------
-
--- -----------------------------------------------------
--- Schema map
--- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `map` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
 USE `map` ;
 
@@ -21,13 +5,11 @@ USE `map` ;
 -- Table `map`.`classrooms`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `map`.`classrooms` (
-  `classroom_id` INT NOT NULL AUTO_INCREMENT,
+  `classroom_id` INT NOT NULL,
   `building` VARCHAR(100) NULL DEFAULT NULL,
   `room_number` VARCHAR(10) NULL DEFAULT NULL,
-  PRIMARY KEY (`classroom_id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`classroom_id`)
+);
 
 
 -- -----------------------------------------------------
@@ -38,10 +20,8 @@ CREATE TABLE IF NOT EXISTS `map`.`courses` (
   `course_name` VARCHAR(100) NULL DEFAULT NULL,
   `credits` INT NULL DEFAULT NULL,
   `department` VARCHAR(100) NULL DEFAULT NULL,
-  PRIMARY KEY (`course_id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`course_id`)
+);
 
 
 -- -----------------------------------------------------
@@ -63,10 +43,8 @@ CREATE TABLE IF NOT EXISTS `map`.`schedule` (
     REFERENCES `map`.`courses` (`course_id`),
   CONSTRAINT `schedule_ibfk_2`
     FOREIGN KEY (`classroom_id`)
-    REFERENCES `map`.`classrooms` (`classroom_id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+    REFERENCES `map`.`classrooms` (`classroom_id`)
+  );
 
 
 -- -----------------------------------------------------
@@ -80,10 +58,8 @@ CREATE TABLE IF NOT EXISTS `map`.`users` (
   `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`student_id`),
   UNIQUE INDEX `username` (`user_id` ASC) VISIBLE,
-  UNIQUE INDEX `email` (`username` ASC) VISIBLE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+  UNIQUE INDEX `email` (`username` ASC) VISIBLE
+);
 
 
 -- -----------------------------------------------------
@@ -101,12 +77,5 @@ CREATE TABLE IF NOT EXISTS `map`.`userschedule` (
     REFERENCES `map`.`users` (`student_id`),
   CONSTRAINT `userschedule_ibfk_2`
     FOREIGN KEY (`schedule_id`)
-    REFERENCES `map`.`schedule` (`schedule_id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+    REFERENCES `map`.`schedule` (`schedule_id`)
+  );

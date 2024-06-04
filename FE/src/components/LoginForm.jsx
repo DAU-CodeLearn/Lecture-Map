@@ -67,7 +67,6 @@ export default function LoginForm() {
       id: id,
       password: password,
     };
-
     fetch("http://localhost:8080/login", {
       method: "post",
       headers: {
@@ -76,7 +75,14 @@ export default function LoginForm() {
       body: JSON.stringify(textbox),
     })
       .then((response) => response.text())
-      .then((data) => console.log(data))
+      .then((data) => {
+        if(data.token) {
+
+        }
+        else {
+          alert("ID 혹은 패스워드를 확인해주세요.");
+        }
+      })
       .catch((error) => console.error("Error:", error));
   };
 
