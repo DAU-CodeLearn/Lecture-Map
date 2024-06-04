@@ -18,8 +18,7 @@
          > 회원별로 저장 된 개인 시간표에 있는 강의실 표시
   
    2. 사용
-      * 코드: Node.js / REACT / MYSQL
-      * 프레임워크 : express / 
-      * 가시화: dbDiagram.io(DB시각화) / Markflow(프로그램시각화) / figma
+      * 코드: Node.js / MYSQL
+      * 라이브러리 & 프레임워크 : REACT / express
    
    3. 구체화
