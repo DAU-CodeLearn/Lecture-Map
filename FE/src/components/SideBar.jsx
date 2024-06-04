@@ -10,42 +10,42 @@ export default function SideBar() {
           </Link>
         </li>
         <li>
-          <Link to="/one/S06/2">
+          <Link to="/one/S06/02">
             <button>2층</button>
           </Link>
         </li>
         <li>
-          <Link to="/one/S06/3">
+          <Link to="/one/S06/03">
             <button>3층</button>
           </Link>
         </li>
         <li>
-          <Link to="/one/S06/4">
+          <Link to="/one/S06/04">
             <button>4층</button>
           </Link>
         </li>
         <li>
-          <Link to="/one/S06/5">
+          <Link to="/one/S06/05">
             <button>5층</button>
           </Link>
         </li>
         <li>
-          <Link to="/one/S06/6">
+          <Link to="/one/S06/06">
             <button>6층</button>
           </Link>
         </li>
         <li>
-          <Link to="/one/S06/7">
+          <Link to="/one/S06/07">
             <button>7층</button>
           </Link>
         </li>
         <li>
-          <Link to="/one/S06/8">
+          <Link to="/one/S06/08">
             <button>8층</button>
           </Link>
         </li>
         <li>
-          <Link to="/one/S06/9">
+          <Link to="/one/S06/09">
             <button>9층</button>
           </Link>
         </li>

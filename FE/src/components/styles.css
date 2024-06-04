@@ -1,0 +1,8 @@
+/* styles.css */
+.dynamic-circle {
+    position: absolute;
+    background-color: transparent;
+    border: 2px solid red;
+    border-radius: 50%;
+    cursor: pointer;
+  }

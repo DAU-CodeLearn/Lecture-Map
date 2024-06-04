@@ -6,7 +6,7 @@ import { Outlet } from "react-router-dom";
 export default function S06Page() {
   return (
     <>
-      <div className="flex h-full">
+      <div className="flex h-full w-[90vw]">
         <SideBar />
       </div>
       <Outlet />
