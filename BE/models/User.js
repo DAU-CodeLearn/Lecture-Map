@@ -1,38 +1,39 @@
-// models/User.js
-const { DataTypes } = require('sequelize');
+// BE/models/user.js
+const connection = require('../config/db.js');
 const bcrypt = require('bcryptjs');
-const sequelize = require('../config/db.js');
 
-const User = sequelize.define('users', {
-  user_id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-  },
-  username: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
-  },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  created_at: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW,
-  },
-}, {
-  hooks: {
-    beforeCreate: async (user) => {
+class User {
+  static async findOne(whereClause) {
+    return new Promise((resolve, reject) => {
+      const query = 'SELECT * FROM users WHERE user_id = ? LIMIT 1';
+      connection.query(query, [whereClause.userId], (err, results) => {
+        if (err) {
+          return reject(err);
+        }
+        resolve(results[0]);
+      });
+    });
+  }
+
+  static async create(userData) {
+    return new Promise(async (resolve, reject) => {
+      const { studentId, userId, password, username } = userData;
       const salt = await bcrypt.genSalt(10);
-      user.password = await bcrypt.hash(user.password, salt);
-    },
-  },
-});
+      const hashedPassword = await bcrypt.hash(password, salt);
+      
+      const query = 'INSERT INTO users (student_id, user_id, password, username, created_at) VALUES (?, ?, ?, ?, NOW())';
+      connection.query(query, [studentId, userId, hashedPassword, username], (err, results) => {
+        if (err) {
+          return reject(err);
+        }
+        resolve({ studentId, userId, username });
+      });
+    });
+  }
 
-User.prototype.matchPassword = async function(enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password);
-};
+  static async matchPassword(storedPassword, enteredPassword) {
+    return bcrypt.compare(enteredPassword, storedPassword);
+  }
+}
 
 module.exports = User;
