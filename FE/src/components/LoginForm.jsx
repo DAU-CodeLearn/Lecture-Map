@@ -74,10 +74,17 @@ export default function LoginForm() {
       },
       body: JSON.stringify(textbox),
     })
-      .then((response) => response.text())
+    .then((res) => {
+      if (res.status === 200) {
+        return res.json();
+      } else {
+        return null;
+      }
+    })
       .then((data) => {
-        if(data.token) {
-
+        if(data != null) {  
+          alert("로그인 성공");
+          console.log(data);
         }
         else {
           alert("ID 혹은 패스워드를 확인해주세요.");
