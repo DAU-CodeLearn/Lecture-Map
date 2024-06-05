@@ -1,6 +1,7 @@
 const { stringify } = require('querystring');
-const User = require('../models/user');
+const User = require('../models/User');
 const jwt = require('jsonwebtoken');
+const Lecture = require('../models/Lecture');
 
 const JWT_SECRET = "your_secret_key";  // 일관된 비밀 키 사용
 
@@ -15,13 +16,8 @@ const registerUser = async (req, res) => {
 
     // 새로운 사용자 생성
     const user = await User.create({ studentId, id, password, name });
-    
-    // JWT 토큰 생성
-    const token = jwt.sign({ id: user.id, name: user.name }, JWT_SECRET, {
-      expiresIn: '1h'
-    });
 
-    res.status(201).json({ token });
+    res.status(201).json({ message: 'login success' });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -70,8 +66,25 @@ const checkId = async (req, res) => {
   }
 };
 
+
+const getTimetable = async (req, res) => {
+  const { lecture_room } = req.body;
+  console.log(lecture_room);
+  try {
+    const timetable = await Lecture.find(lecture_room);
+    if (!timetable.length) {
+      return res.status(404).json({ message: 'No lectures found for the given room' });
+    }
+    res.status(200).json(timetable);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+
 module.exports = {
   registerUser,
   loginUser,
-  checkId
+  checkId,
+  getTimetable
 };

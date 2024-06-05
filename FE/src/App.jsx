@@ -13,6 +13,7 @@ import S06Second from "./pages/S06/S06Second";
 import S06Sixth from "./pages/S06/S06Sixth";
 import S06Layout from "./pages/layout/S06Layout";
 import S06C0601 from "./pages/S06/6th/S06C0601";
+import S06C0606 from "./pages/S06/6th/S06C0606"
 import S06C0609 from "./pages/S06/6th/S06C0609";
 
 const router = createBrowserRouter([
@@ -42,6 +43,7 @@ const router = createBrowserRouter([
           { path: "/one/S06/02", element: <S06Second /> },
           { path: "/one/S06/06", element: <S06Sixth /> },
           { path: "/one/S06/06/0601", element: <S06C0601 /> },
+          { path: "/one/S06/06/0606", element: <S06C0606 /> },
           { path: "/one/S06/06/0609", element: <S06C0609 /> },
         ],
       },

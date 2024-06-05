@@ -21,6 +21,7 @@ app.use('/api/auth',authRoutes);
 app.post('/login', authRoutes);
 app.post('/register', authRoutes);
 app.post('/checkId', authRoutes);
+app.post('/getTimetable', authRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
