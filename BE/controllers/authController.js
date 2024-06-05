@@ -35,7 +35,7 @@ const loginUser = async (req, res) => {
     if(!user){
       return res.status(400).json({ message: 'User not found' });
     }
-
+    
     // 비밀번호 일치 확인
     const isMatch = await User.matchPassword(user.password, password);
     if(!isMatch){
