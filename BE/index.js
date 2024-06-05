@@ -1,3 +1,4 @@
+const cors = require('cors');
 const express = require('express');
 const dotenv = require('dotenv');
 const authRoutes = require('./routes/api/authRoutes');
@@ -10,7 +11,9 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 
 // 미들웨어 설정
+app.use(cors());
 app.use(express.json());
+
 
 // 라우트 설정
 app.use('/api/auth',authRoutes);
