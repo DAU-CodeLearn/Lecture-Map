@@ -1,5 +1,5 @@
 // BE/models/user.js
-const connection = require('../config/db.js');
+const connection = require('../config/mapConnect');
 const bcrypt = require('bcryptjs');
 
 class User {

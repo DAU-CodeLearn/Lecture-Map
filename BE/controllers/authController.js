@@ -1,24 +1,20 @@
 // BE/controllers/authController.js
+const { decodeBase64 } = require('bcryptjs');
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 
 const registerUser = async (req, res) => {
-  const { studentId, userId, password, username } = req.body;
+  const { studentId, id, password, username } = req.body;
 
   try {
     // 사용자 중복 확인
-    const existingUser = await User.findOne({ userId });
+    const existingUser = await User.findOne({ id });
     if (existingUser) {
       return res.status(400).json({ message: 'User already exists' });
     }
 
     // 새로운 사용자 생성
-    const user = await User.create({ studentId, userId, password, username });
-
-    // JWT 토큰 생성
-    const token = jwt.sign({ userId: user.userId, username: user.username }, process.env.JWT_SECRET, {
-      expiresIn: '1h'
-    });
+    const user = await User.create({ studentId, id, password, username });
 
     res.status(201).json({ token });
   } catch (err) {
@@ -27,11 +23,11 @@ const registerUser = async (req, res) => {
 };
 
 const loginUser = async (req, res) => {
-  const { userId, password } = req.body;
+  const { id, password } = req.body;
   
   try {
     // 사용자 확인
-    const user = await User.findOne({ userId });
+    const user = await User.findOne({ id });
     if(!user){
       return res.status(400).json({ message: 'User not found' });
     }
@@ -41,12 +37,12 @@ const loginUser = async (req, res) => {
     if(!isMatch){
       return res.status(401).json({ message: 'Invalid credentials' });
     }
-
+    
     // JWT 토큰 생성
-    const token = jwt.sign({ userId: user.userId, username: user.username }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ tokenId: user.user_id, tokenName: user.username }, process.env.JWT_SECRET, {
       expiresIn: '1h'
     });
-
+    
     res.status(200).json({ token });
   } catch (err) {
     res.status(500).json({ error: err.message });
