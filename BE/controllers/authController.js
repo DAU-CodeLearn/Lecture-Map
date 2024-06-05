@@ -1,6 +1,8 @@
-// BE/controllers/authController.js
+const { stringify } = require('querystring');
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
+
+const JWT_SECRET = "your_secret_key";  // 일관된 비밀 키 사용
 
 const registerUser = async (req, res) => {
   const { studentId, id, password, name } = req.body;
@@ -13,25 +15,25 @@ const registerUser = async (req, res) => {
 
     // 새로운 사용자 생성
     const user = await User.create({ studentId, id, password, name });
-
+    
     // JWT 토큰 생성
-    const token = jwt.sign({ id: user.id, name: user.name }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: user.id, name: user.name }, JWT_SECRET, {
       expiresIn: '1h'
     });
 
     res.status(201).json({ token });
   } catch (err) {
-    console.log(err);
     res.status(500).json({ error: err.message });
   }
 };
 
 const loginUser = async (req, res) => {
   const { id, password } = req.body;
-  console.log(`${id}, ${password}`);
+  
   try {
     // 사용자 확인
     const user = await User.findOne({ id });
+    
     if(!user){
       return res.status(400).json({ message: 'User not found' });
     }
@@ -43,16 +45,16 @@ const loginUser = async (req, res) => {
     }
 
     // JWT 토큰 생성
-    const token = jwt.sign({ id: user.id, name: user.name }, process.env.JWT_SECRET, {
+    const token = jwt.sign({id: user.user_id, name: user.username }, JWT_SECRET, {
       expiresIn: '1h'
     });
-    console.log(token);
+    const decoded = jwt.verify(token, JWT_SECRET);  // 올바르게 토큰을 검증
+    console.log(decoded);
     res.status(200).json({ token });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
-// 토큰을 HTTP헤더에 넣을지 쿠키에 넣을지 정해서 작업을 해야함 (헤더의 경우 클라이언트측에서 쿠키의 경우 서버와 헤더 둘다)
 
 const checkId = async (req, res) => {
   const { id } = req.body;

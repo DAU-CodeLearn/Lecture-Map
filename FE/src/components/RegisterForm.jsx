@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from "../AuthContext";
 
 const FormWrapper = styled.div`
   display: flex;
@@ -74,7 +73,7 @@ export default function RegisterForm() {
   const [studentId, setStudentId] = useState("");
   const [isIdAvailable, setIsIdAvailable] = useState(null);
   const navigate = useNavigate();
-  const { login } = useAuth();
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -173,7 +172,6 @@ export default function RegisterForm() {
       .then((data) => {
         if (data !== null) {
           alert("회원가입 성공.");
-          login(data.token); // 로그인 처리
           navigate("/");
         } else {
           alert("이미 가입된 학번입니다.");
