@@ -22,6 +22,7 @@ app.post('/login', authRoutes);
 app.post('/register', authRoutes);
 app.post('/checkId', authRoutes);
 app.post('/lectures', lectureRoutes);
+app.post('/classroom', lectureRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
