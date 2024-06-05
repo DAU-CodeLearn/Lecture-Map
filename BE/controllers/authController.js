@@ -21,13 +21,14 @@ const registerUser = async (req, res) => {
 
     res.status(201).json({ token });
   } catch (err) {
+    console.log(err);
     res.status(500).json({ error: err.message });
   }
 };
 
 const loginUser = async (req, res) => {
   const { id, password } = req.body;
-  
+  console.log(`${id}, ${password}`);
   try {
     // 사용자 확인
     const user = await User.findOne({ id });
@@ -45,7 +46,7 @@ const loginUser = async (req, res) => {
     const token = jwt.sign({ id: user.id, name: user.name }, process.env.JWT_SECRET, {
       expiresIn: '1h'
     });
-
+    console.log(token);
     res.status(200).json({ token });
   } catch (err) {
     res.status(500).json({ error: err.message });

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from "../AuthContext";
 
 const FormWrapper = styled.div`
   display: flex;
@@ -71,6 +73,8 @@ export default function RegisterForm() {
   const [name, setName] = useState("");
   const [studentId, setStudentId] = useState("");
   const [isIdAvailable, setIsIdAvailable] = useState(null);
+  const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -88,9 +92,7 @@ export default function RegisterForm() {
   };
 
   const handleIdCheck = () => {
-    const textbox = {
-      id: id
-    }
+    const textbox = { id };
 
     fetch("http://localhost:8080/checkId", {
       method: "post",
@@ -100,31 +102,20 @@ export default function RegisterForm() {
       body: JSON.stringify(textbox),
     })
       .then((res) => {
-        if(res.status == 200) {
+        if (res.status === 200) {
           return res.json();
-        }
-        else {
+        } else {
           return null;
         }
       })
       .then((data) => {
-        console.log(data);
-        if(data != null) {
+        if (data !== null) {
           alert("사용 가능한 아이디입니다.");
           setIsIdAvailable(true);
-        }
-        else {
+        } else {
           alert("이미 사용 중인 아이디입니다.");
           setIsIdAvailable(false);
         }
-        // if (data.token) {
-        //   alert("사용 가능한 아이디입니다.");
-        //   setIsIdAvailable(true);
-        // } else {
-        //   console.log(data);
-        //   alert("이미 사용 중인 아이디입니다.");
-        //   setIsIdAvailable(false);
-        // }
       })
       .catch((error) => console.error("Error:", error));
   };
@@ -160,10 +151,10 @@ export default function RegisterForm() {
       return;
     }
     const textbox = {
-      id: id,
-      password: password,
-      studentId: studentId,
-      name: name,
+      id,
+      password,
+      studentId,
+      name,
     };
     fetch("http://localhost:8080/register", {
       method: "post",
@@ -172,28 +163,25 @@ export default function RegisterForm() {
       },
       body: JSON.stringify(textbox),
     })
-    .then((res) => {
-      if(res.status == 201) {
-        return res.text();
-      }
-      else {
-        return null;
-      }
-    })
-    .then((data) => {
-      console.log(data);
-      if(data != null) {
-        alert("회원가입 성공.");
-        setIsIdAvailable(true);
-      }
-      else {
-        alert("이미 가입된 학번입니다.");
-        setIsIdAvailable(false);
-      }
-    })
+      .then((res) => {
+        if (res.status === 201) {
+          return res.json();
+        } else {
+          return null;
+        }
+      })
+      .then((data) => {
+        if (data !== null) {
+          alert("회원가입 성공.");
+          login(data.token); // 로그인 처리
+          navigate("/");
+        } else {
+          alert("이미 가입된 학번입니다.");
+        }
+      })
       .catch((error) => {
         alert("실패");
-        console.error("Error:", error)
+        console.error("Error:", error);
       });
   };
 
