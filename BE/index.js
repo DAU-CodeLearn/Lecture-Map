@@ -24,6 +24,7 @@ app.use('/api/lecture',lectureRoutes);
 app.post('/login', authRoutes);
 app.post('/register', authRoutes);
 app.post('/checkId', authRoutes);
+app.post('/changePassword', authRoutes);
 app.post('/lectures', lectureRoutes);
 app.post('/classroom', lectureRoutes);
 
