@@ -31,7 +31,7 @@ const Input = styled.input`
 `;
 
 const Button = styled.div`
-  font-size: 18px;
+  font-size: 23px;
   font-weight: 700;
   line-height: 49px;
   display: block;
@@ -43,6 +43,7 @@ const Button = styled.div`
   color: #fff;
   border: none;
   border-radius: 0;
+  letter-spacing: 2px;
   background-color: #03c75a;
   ${({ disabled }) =>
     disabled &&
