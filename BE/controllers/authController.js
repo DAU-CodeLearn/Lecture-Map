@@ -4,7 +4,7 @@ const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 
 const registerUser = async (req, res) => {
-  const { studentId, id, password, username } = req.body;
+  const { studentId, id, password, name } = req.body;
 
   try {
     // 사용자 중복 확인
@@ -12,11 +12,11 @@ const registerUser = async (req, res) => {
     if (existingUser) {
       return res.status(400).json({ message: 'User already exists' });
     }
-
+    console.log("1");
     // 새로운 사용자 생성
-    const user = await User.create({ studentId, id, password, username });
-
-    res.status(201).json({ token });
+    const user = await User.create({ studentId, id, password, name });
+    console.log("2");
+    res.status(201).json({messae: "Register success"});
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -51,10 +51,10 @@ const loginUser = async (req, res) => {
 // 토큰을 HTTP헤더에 넣을지 쿠키에 넣을지 정해서 작업을 해야함 (헤더의 경우 클라이언트측에서 쿠키의 경우 서버와 헤더 둘다)
 
 const checkId = async (req, res) => {
-  const { userId } = req.body;
+  const { id } = req.body;
 
   try{
-    const user = await User.findOne({ userId });
+    const user = await User.findOne({ id });
     if(user){
       return res.status(401).json({ message: '아이디가 중복입니다. 다른 아이디를 입력해주세요.'});
     }

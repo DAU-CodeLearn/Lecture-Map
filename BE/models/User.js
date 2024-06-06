@@ -17,16 +17,17 @@ class User {
 
   static async create(userData) {
     return new Promise(async (resolve, reject) => {
-      const { studentId, id, password, username } = userData;
+      const { studentId, id, password, name } = userData;
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(password, salt);
       
       const query = 'INSERT INTO users (student_id, user_id, password, username, created_at) VALUES (?, ?, ?, ?, NOW())';
-      connection.query(query, [studentId, id, hashedPassword, username], (err, results) => {
+      connection.query(query, [studentId, id, hashedPassword, name], (err, results) => {
         if (err) {
+          console.log(`쿼리 오류 : ${studentId} ${id} ${password} ${name}`);
           return reject(err);
         }
-        resolve({ studentId, id, username });
+        resolve({ studentId, id, name });
       });
     });
   }

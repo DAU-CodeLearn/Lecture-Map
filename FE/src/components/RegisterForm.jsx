@@ -31,6 +31,12 @@ const Input = styled.input`
   border: solid 1px #dadada;
   background: #fff;
   box-sizing: border-box;
+  ${({ disabled }) =>
+    disabled &&
+    `
+    background-color: #efefef;
+    cursor: not-allowed;
+  `}
 `;
 
 const CheckButton = styled.button`
@@ -42,6 +48,12 @@ const CheckButton = styled.button`
   color: white;
   cursor: pointer;
   box-sizing: border-box;
+  ${({ disabled }) =>
+    disabled &&
+    `
+    background-color: #efefef;
+    cursor: not-allowed;
+  `}
 `;
 
 const Button = styled.div`
@@ -65,6 +77,16 @@ const Button = styled.div`
   `}
 `;
 
+const BackButton = styled.button`
+  font-size: 18px;
+  margin-bottom: 16px;
+  padding: 10px 20px;
+  background-color: #03c75a;
+  color: white;
+  border: none;
+  cursor: pointer;
+`;
+
 export default function RegisterForm() {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
@@ -72,8 +94,8 @@ export default function RegisterForm() {
   const [name, setName] = useState("");
   const [studentId, setStudentId] = useState("");
   const [isIdAvailable, setIsIdAvailable] = useState(null);
+  const [isIdChecked, setIsIdChecked] = useState(false);
   const navigate = useNavigate();
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -91,6 +113,13 @@ export default function RegisterForm() {
   };
 
   const handleIdCheck = () => {
+    const idRegex = /^[a-zA-Z0-9]{8,}$/;
+
+    if (!idRegex.test(id)) {
+      alert("아이디는 최소 8자리의 영어와 숫자로 이루어져야 합니다.");
+      return;
+    }
+
     const textbox = { id };
 
     fetch("http://localhost:8080/checkId", {
@@ -111,6 +140,7 @@ export default function RegisterForm() {
         if (data !== null) {
           alert("사용 가능한 아이디입니다.");
           setIsIdAvailable(true);
+          setIsIdChecked(true); // ID 확인 후 상태 업데이트
         } else {
           alert("이미 사용 중인 아이디입니다.");
           setIsIdAvailable(false);
@@ -127,7 +157,7 @@ export default function RegisterForm() {
       return false;
     }
     if (!idRegex.test(id)) {
-      alert("아이디는 최소 8자리의 영어와 숫자로 이루어져야 합니다.");
+      alert("아이디는 최소 8자리로 이루어져야 합니다.");
       return false;
     }
     if (password.length < 8) {
@@ -183,9 +213,14 @@ export default function RegisterForm() {
       });
   };
 
+  const handleBackClick = () => {
+    navigate('/');
+  };
+
   return (
     <div className="flex overflow-hidden h-[93vh] justify-center items-center flex-col">
       <Container>
+        <BackButton onClick={handleBackClick}>이전 페이지</BackButton>
         <FormWrapper>
           <InputWrapper>
             <Input
@@ -194,8 +229,11 @@ export default function RegisterForm() {
               value={id}
               onChange={handleChange}
               placeholder="아이디를 입력해주세요"
+              disabled={isIdChecked} // 아이디 중복 확인 후 비활성화
             />
-            <CheckButton onClick={handleIdCheck}>중복 확인</CheckButton>
+            <CheckButton onClick={handleIdCheck} disabled={isIdChecked}>
+              중복 확인
+            </CheckButton>
           </InputWrapper>
           <InputWrapper>
             <Input
