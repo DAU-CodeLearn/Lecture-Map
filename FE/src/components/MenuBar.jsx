@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext";
+import logo from "../assets/Loginlogo.png";
 
 export default function MenuBar() {
   const { logout } = useAuth();
@@ -12,10 +13,10 @@ export default function MenuBar() {
   };
 
   return (
-    <div className="w-full h-[7vh] bg-gray-200 flex justify-between items-center">
-      <div className="w-1/6 text-center">
+    <div className="w-full h-[7vh] bg-sky-500 flex justify-between items-center text-[16pt] text-white ">
+      <div className="w-1/6 text-center pl-9">
         <Link to="/">
-          <p>로고</p>
+        <img src={logo} alt="로고" className="h-full" />
         </Link>
       </div>
       <div className="w-4/6 flex justify-around">

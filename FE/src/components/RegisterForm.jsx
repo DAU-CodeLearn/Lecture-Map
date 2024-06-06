@@ -20,12 +20,12 @@ const InputWrapper = styled.div`
   display: flex;
   width: 100%;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 17px;
 `;
 
 const Input = styled.input`
   flex: 1;
-  height: 40px;
+  height: 50px;
   margin: 0;
   padding: 5px 39px 5px 11px;
   border: solid 1px #dadada;
@@ -41,7 +41,8 @@ const Input = styled.input`
 
 const CheckButton = styled.button`
   margin-left: 8px;
-  height: 40px;
+  font-size: 20px;
+  height: 50px;
   padding: 0 16px;
   border: none;
   background-color: #03c75a;
@@ -57,12 +58,12 @@ const CheckButton = styled.button`
 `;
 
 const Button = styled.div`
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 700;
-  line-height: 49px;
+  line-height: 55px;
   display: block;
   width: 100%;
-  height: 49px;
+  height: 55px;
   margin: 16px 0 7px;
   cursor: pointer;
   text-align: center;
@@ -78,7 +79,7 @@ const Button = styled.div`
 `;
 
 const BackButton = styled.button`
-  font-size: 18px;
+  font-size: 20px;
   margin-bottom: 16px;
   padding: 10px 20px;
   background-color: #03c75a;
