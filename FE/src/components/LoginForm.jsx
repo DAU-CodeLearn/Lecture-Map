@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
 import styled from "styled-components";
+import { useAuth } from "../AuthContext";
 
 const Container = styled.div`
   display: flex;
@@ -52,7 +54,7 @@ const Button = styled.div`
 export default function LoginForm() {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate = useNavigate();
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "id") {
@@ -61,7 +63,7 @@ export default function LoginForm() {
       setPassword(value);
     }
   };
-
+  const { login } = useAuth();
   const onClick = () => {
     const textbox = {
       id: id,
@@ -84,7 +86,9 @@ export default function LoginForm() {
       .then((data) => {
         if(data != null) {  
           alert("로그인 성공");
+          login(data.token); // 로그인 처리
           console.log(data);
+          navigate("/one");
         }
         else {
           alert("ID 혹은 패스워드를 확인해주세요.");
