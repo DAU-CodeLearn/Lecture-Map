@@ -11,8 +11,8 @@ export default function PageTwo() {
         const decoded = jwtDecode(token);
         console.log(decoded); // 디버깅을 위해 디코딩된 토큰 출력
         setUserInfo({
-          id: decoded.id,
-          name: decoded.name,
+          id: decoded.tokenId,
+          name: decoded.tokenName,
           issuedAt: new Date(decoded.iat * 1000).toLocaleString(),
           expiresAt: new Date(decoded.exp * 1000).toLocaleString()
         });
