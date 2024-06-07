@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function SideBar() {
+export default function S06SideBar() {
   return (
     <div className="flex flex-col w-[10vw] bg-white-500 h-[94vh] text-[18pt] text-sky-600 border-r-2 border-gray-300">
       <ul className="flex flex-col space-y-12 pt-7 items-center">
