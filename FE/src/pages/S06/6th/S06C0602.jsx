@@ -5,7 +5,7 @@ import TimeTable from "../../../components/TimeTable";
 export default function S06C0602() {
   return (
     <>
-      <TimeTable build="S06" roomNum="602" />
+      <TimeTable build="S06" roomNum="0602" />
         
     </>
   )
