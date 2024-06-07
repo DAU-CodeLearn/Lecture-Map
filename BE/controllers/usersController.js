@@ -1,6 +1,6 @@
 // BE/controllers/authController.js
 const { decodeBase64 } = require('bcryptjs');
-const User = require('../models/user');
+const User = require('../models/Users');
 const jwt = require('jsonwebtoken');
 
 const registerUser = async (req, res) => {
@@ -12,10 +12,8 @@ const registerUser = async (req, res) => {
     if (existingUser) {
       return res.status(400).json({ message: 'User already exists' });
     }
-    console.log("1");
     // 새로운 사용자 생성
     const user = await User.create({ studentId, id, password, name });
-    console.log("2");
     res.status(201).json({messae: "Register success"});
   } catch (err) {
     res.status(500).json({ error: err.message });
