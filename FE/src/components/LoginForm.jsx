@@ -89,7 +89,7 @@ export default function LoginForm() {
           alert("로그인 성공");
           login(data.token); // 로그인 처리
           console.log(data);
-          navigate("/one");
+          navigate("/HadanCampusMap");
         }
         else {
           alert("ID 혹은 패스워드를 확인해주세요.");

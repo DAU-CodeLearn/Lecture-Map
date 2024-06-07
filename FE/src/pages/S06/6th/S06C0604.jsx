@@ -6,7 +6,7 @@ export default function S06C0604() {
   return (
     <>
     <div>
-    <TimeTable build="S06" roomNum="604" />
+    <TimeTable build="S06" roomNum="0604" />
     </div>
         
     </>

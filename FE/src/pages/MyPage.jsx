@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {jwtDecode} from "jwt-decode";
 
-export default function PageTwo() {
+export default function MyPage() {
   const [userInfo, setUserInfo] = useState(null);
 
   useEffect(() => {
