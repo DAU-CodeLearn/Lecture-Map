@@ -34,35 +34,50 @@ const periods = [
   "20:55-21:20",
   "21:20-21:45",
   "21:45-22:10",
-
 ];
 
 const StyledTable = styled.table`
   border-collapse: collapse;
-  width: 84%; /* 전체 표의 너비를 줄임 */
-  table-layout: fixed; /* 고정된 레이아웃 사용 */
+  width: 90%;
+  table-layout: fixed;
   th, td {
     border: 1px solid #dddddd;
     text-align: center;
-    padding: 1px; /* 셀의 패딩을 줄임 */
-    width: calc(100% / 8); /* 모든 열의 너비를 동일하게 설정, 요일 수에 따라 변경 */
-    word-wrap: break-word; /* 단어 단위로 줄바꿈 */
-    height: 20px; /* 셀의 높이를 줄임 */
+    padding: 1px;
+    width: calc(100% / 8);
+    word-wrap: break-word;
+    height: 20px;
   }
   th {
     background-color: #f2f2f2;
-    height: 30px; /* 헤더 셀의 높이 */
+    height: 45px;
+    font-size: 18px;
   }
 `;
 
+const getColor = (key, colorMap) => {
+  if (!colorMap[key]) {
+    const colors = [
+      "#FFDDC1", "#FFABAB", "#FFC3A0", "#FF677D", "#D4A5A5",
+      "#FFA500", "#00A5CF", "#A3D6D4", "#FFD700", "#7B68EE",
+      "#66CDAA", "#FF69B4", "#8A2BE2"
+    ];
+    const newColor = colors[Object.keys(colorMap).length % colors.length];
+    colorMap[key] = newColor;
+  }
+  return colorMap[key];
+};
+
 const StyledTd = styled.td`
   word-wrap: break-word;
-  hyphens: auto; /* 단어 단위로 줄바꿈 */
-  height: 20px; /* 셀의 높이를 줄임 */
+  hyphens: auto;
+  height: 20px;
+  background-color: ${(props) => props.color || "transparent"};
 `;
 
 function TimeTable({ build, roomNum }) {
   const [timetable, setTimetable] = useState([]);
+  const colorMap = {}; // lecture_code와 lecture_id 조합에 따라 색상을 매핑하기 위한 객체
 
   useEffect(() => {
     const fetchTimetable = () => {
@@ -97,6 +112,7 @@ function TimeTable({ build, roomNum }) {
     );
 
     lectures.forEach(({ lecture_code, lecture_id, lecturename, week, lecture_start, lecture_end }) => {
+      const key = `${lecture_code}-${lecture_id}`;
       for (let i = lecture_start - 1; i < lecture_end; i++) {
         merged[i][week] = {
           lecture_code,
@@ -104,6 +120,7 @@ function TimeTable({ build, roomNum }) {
           lecturename,
           span: lecture_end - lecture_start + 1,
           start: lecture_start - 1,
+          key
         };
       }
     });
@@ -134,7 +151,7 @@ function TimeTable({ build, roomNum }) {
                 if (!cell) return <StyledTd key={day}></StyledTd>;
                 if (cell.start !== rowIndex) return null;
                 return (
-                  <StyledTd key={day} rowSpan={cell.span}>
+                  <StyledTd key={day} rowSpan={cell.span} color={getColor(cell.key, colorMap)}>
                     {cell.lecturename}<br />
                     {cell.lecture_code}-{cell.lecture_id}
                   </StyledTd>
