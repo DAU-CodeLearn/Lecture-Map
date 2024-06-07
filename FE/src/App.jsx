@@ -23,7 +23,10 @@ import S06C0611 from "./pages/S06/6th/S06C0611";
 import S06C0633 from "./pages/S06/6th/S06C0633";
 import HadanCampusMap from "./pages/HadanCampusMap";
 import MyTimeTable from "./pages/MyTimeTable";
-
+import MyPageSideBar from "./components/MyPageSideBar";
+import MyPageLayout from "./pages/layout/MyPageLayout";
+import MyPageInfo from "./pages/MyPageInfo"
+import ChangePassword from "./pages/ChangePassword";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -41,7 +44,23 @@ const router = createBrowserRouter([
     element: <IndexLayout />,
     children: [
       { path: "/HadanCampusMap", element: <HadanCampusMap /> },
-      { path: "/MyPage", element: <MyPage /> },
+      {
+        element: <MyPageLayout />,
+        children: [
+          {
+            path: "/MyPage",
+            element: <MyPage />
+          },
+          {
+            path: "/MyPage/Info",
+            element: <MyPageInfo />
+          },
+          {
+            path: "/MyPage/ChangePassword",
+            element: <ChangePassword />
+          }
+        ],
+      },
       { path: "/MyTimeTable", element: <MyTimeTable /> },
       { path: "/three", element: <PageThree /> },
       { path: "/four", element: <PageFour /> },
