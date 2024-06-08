@@ -62,8 +62,20 @@ const checkId = async (req, res) => {
   }
 };
 
+const changePassword = async (req, res) => {
+  const { id, password } = req.body;
+
+  try{
+    const result = await User.updatePassword({ id, password });
+    console.log(result.message);
+  } catch(err){
+    console.error('비밀번호 변경 중 오류 발생: ', err);
+  }
+};
+
 module.exports = {
   registerUser,
   loginUser,
-  checkId
+  checkId,
+  changePassword
 };
