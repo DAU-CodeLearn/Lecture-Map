@@ -8,8 +8,14 @@ import PageThree from "./pages/PageThree";
 import PageFour from "./pages/PageFour";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
-import S06Second from "./pages/S06/S06Second";
-import S06Sixth from "./pages/S06/S06Sixth";
+import S06F2 from "./pages/S06/S06F2";
+import S06F3 from "./pages/S06/S06F3";
+import S06F4 from "./pages/S06/S06F4";
+import S06F5 from "./pages/S06/S06F5";
+import S06F6 from "./pages/S06/S06F6";
+import S06F7 from "./pages/S06/S06F7";
+import S06F8 from "./pages/S06/S06F8";
+import S06F9 from "./pages/S06/S06F9";
 import S06Layout from "./pages/layout/S06Layout";
 import S06C0601 from "./pages/S06/6th/S06C0601";
 import S06C0602 from "./pages/S06/6th/S06C0602";
@@ -68,8 +74,14 @@ const router = createBrowserRouter([
         path: "/HadanCampusMap/S06",
         element: <S06Layout />,
         children: [
-          { path: "/HadanCampusMap/S06/02", element: <S06Second /> },
-          { path: "/HadanCampusMap/S06/06", element: <S06Sixth /> },
+          { path: "/HadanCampusMap/S06/02", element: <S06F2 /> },
+          { path: "/HadanCampusMap/S06/03", element: <S06F3 /> },
+          { path: "/HadanCampusMap/S06/04", element: <S06F4 /> },
+          { path: "/HadanCampusMap/S06/05", element: <S06F5 /> },
+          { path: "/HadanCampusMap/S06/06", element: <S06F6 /> },
+          { path: "/HadanCampusMap/S06/07", element: <S06F7 /> },
+          { path: "/HadanCampusMap/S06/08", element: <S06F8 /> },
+          { path: "/HadanCampusMap/S06/09", element: <S06F9 /> },
           { path: "/HadanCampusMap/S06/06/0601", element: <S06C0601 /> },
           { path: "/HadanCampusMap/S06/06/0602", element: <S06C0602 /> },
           { path: "/HadanCampusMap/S06/06/0603", element: <S06C0603 /> },

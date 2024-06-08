@@ -16,7 +16,7 @@ export default function SideBar() {
         </li>
         <li>
           <Link to="/MyPage/ChangePassword">
-            <button>내 정보 수정</button>
+            <button>비밀번호 수정</button>
           </Link>
         </li>
         

@@ -1,4 +1,5 @@
 // BE/controllers/lectureController.js
+const { start } = require('repl');
 const Lecture = require('../models/Lecture');
 
 const loadLecture = async (req, res) => {
@@ -15,15 +16,41 @@ const loadLecture = async (req, res) => {
 };
 
 const classroomLecture = async (req, res) => {
-    const { build, roomNum } = req.body;
+    const { build, roomNum, week } = req.body;
 
     try{
-        const lecture = await Lecture.findroom({ build, roomNum });
-        if(!lecture.length){
-            return res.status(404).json({ message: 'No lectures found in', build, roomNum});
+        const lectures = await Lecture.findRoom({ build, roomNum, week });
+        if(!lectures.length){
+            return res.status(404).json({ message: 'No lectures found in', build, roomNum, week});
         }
 
-        res.status(200).json({ lecture });
+        res.status(200).json({ lectures });
+    } catch(err){
+        res.status(500).json({ error: err.message });
+    }
+};
+
+const classroomLectureFloor = async (req, res) => {
+    const { build, floor } = req.body;
+    try{
+        const lectures = await Lecture.findRoom_floor({ build, floor });
+        if(!lectures.length){
+            return res.status(404).json({ message: 'No lectures found in', build, floor });
+        }
+        res.status(200).json({ lectures });
+    } catch(err){
+        res.status(500).json({ error: err.message });
+    }
+};
+
+const classroomLectureTime = async (req, res) => {
+    const { build, floor, week, startTime } = req.body;
+    try{
+        const lectures = await Lecture.findRoom_time({ build, floor, week, startTime });
+        if(!lectures.length){
+            return res.status(404).json({ message: 'No lectures found in ', build, floor, week, startTime });
+        }
+        res.status(200).json({ lectures });
     } catch(err){
         res.status(500).json({ error: err.message });
     }
@@ -31,5 +58,7 @@ const classroomLecture = async (req, res) => {
 
 module.exports = {
     loadLecture,
-    classroomLecture
+    classroomLecture,
+    classroomLectureFloor,
+    classroomLectureTime
 };

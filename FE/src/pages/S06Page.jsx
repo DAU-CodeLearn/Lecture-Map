@@ -1,6 +1,6 @@
 import GoToMapPage from "../components/GoToMapPage.jsx";
 import S06SideBar from "../components/S06SideBar.jsx";
-import S06Second from "./S06/S06Second.jsx";
+import S06Second from "./S06/S06F2.jsx";
 import { Outlet } from "react-router-dom";
 
 export default function S06Page() {
