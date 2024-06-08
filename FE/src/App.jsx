@@ -28,11 +28,11 @@ import S06C0609 from "./pages/S06/6th/S06C0609";
 import S06C0611 from "./pages/S06/6th/S06C0611";
 import S06C0633 from "./pages/S06/6th/S06C0633";
 import HadanCampusMap from "./pages/HadanCampusMap";
-import MyTimeTable from "./pages/MyTimeTable";
 import MyPageSideBar from "./components/MyPageSideBar";
 import MyPageLayout from "./pages/layout/MyPageLayout";
 import MyPageInfo from "./pages/MyPageInfo"
 import ChangePassword from "./pages/ChangePassword";
+import UserTimeTable from "./pages/UserTimeTable";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -67,7 +67,7 @@ const router = createBrowserRouter([
           }
         ],
       },
-      { path: "/MyTimeTable", element: <MyTimeTable /> },
+      { path: "/MyTimeTable", element: <UserTimeTable /> },
       { path: "/three", element: <PageThree /> },
       { path: "/four", element: <PageFour /> },
       {
