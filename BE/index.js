@@ -1,8 +1,9 @@
 const cors = require('cors');
 const express = require('express');
 const dotenv = require('dotenv');
-const authRoutes = require('./routes/api/authRoutes');
+const usersRoutes = require('./routes/api/usersRoutes');
 const lectureRoutes = require('./routes/api/lectureRoutes');
+const userscheduleRoutes = require('./routes/api/userscheduleRoutes');
 //const classroomRoutes = require('./routes/classroomRoutes');
 
 dotenv.config();
@@ -16,16 +17,21 @@ app.use(express.json());
 
 
 // 라우트 설정
-app.use('/api/auth',authRoutes);
+app.use('/api/users',usersRoutes);
 app.use('/api/lecture',lectureRoutes);
-//app.use('/api/classrooms', classroomRoutes);
+app.use('/api/userschedule',userscheduleRoutes);
 
 // 엔드포인트 추가
-app.post('/login', authRoutes);
-app.post('/register', authRoutes);
-app.post('/checkId', authRoutes);
+app.post('/login', usersRoutes);
+app.post('/register', usersRoutes);
+app.post('/checkId', usersRoutes);
+
 app.post('/lectures', lectureRoutes);
 app.post('/classroom', lectureRoutes);
+app.post('/classroomfloor', lectureRoutes);
+app.post('/classroomtime', lectureRoutes);
+
+app.post('/myschedule', userscheduleRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
