@@ -31,7 +31,7 @@ const Input = styled.input`
 `;
 
 const Button = styled.div`
-  font-size: 23px;
+  font-size: 18px;
   font-weight: 700;
   line-height: 49px;
   display: block;
@@ -43,7 +43,6 @@ const Button = styled.div`
   color: #fff;
   border: none;
   border-radius: 0;
-  letter-spacing: 2px;
   background-color: #03c75a;
   ${({ disabled }) =>
     disabled &&
@@ -89,7 +88,7 @@ export default function LoginForm() {
           alert("로그인 성공");
           login(data.token); // 로그인 처리
           console.log(data);
-          navigate("/HadanCampusMap");
+          navigate("/one");
         }
         else {
           alert("ID 혹은 패스워드를 확인해주세요.");

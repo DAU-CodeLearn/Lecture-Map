@@ -33,43 +33,43 @@ export default function S06Sixth() {
     <div className="relative">
       <img src={mapSrc} alt="Map" className="w-full h-[93vh] object-contain" />
       <Link
-        to="/HadanCampusMap/S06/06/0601"
+        to="/one/S06/06/0601"
         className="absolute top-[38%] left-[28.5%] w-[2.3%] h-[3%] bg-transparent border-2 border-red-500 cursor-pointer"
       />
       <Link
-        to="/HadanCampusMap/S06/06/0602"
+        to="/one/S06/06/0602"
         className="absolute top-[38%] left-[34.8%] w-[2.3%] h-[3%] bg-transparent border-2 border-red-500 cursor-pointer"
       />
       <Link
-        to="/HadanCampusMap/S06/06/0603"
+        to="/one/S06/06/0603"
         className="absolute top-[38%] left-[40.7%] w-[2.3%] h-[3%] bg-transparent border-2 border-red-500 cursor-pointer"
       />
       <Link
-        to="/HadanCampusMap/S06/06/0604"
+        to="/one/S06/06/0604"
         className="absolute top-[38%] left-[50.1%] w-[2.3%] h-[3%] bg-transparent border-2 border-red-500 cursor-pointer"
       />
       <Link
-        to="/HadanCampusMap/S06/06/0606"
+        to="/one/S06/06/0606"
         className="absolute top-[16%] left-[73%] w-[2.3%] h-[3%] bg-transparent border-2 border-red-500 cursor-pointer"
       />
       <Link
-        to="/HadanCampusMap/S06/06/0607"
+        to="/one/S06/06/0607"
         className="absolute top-[27.5%] left-[67%] w-[2.3%] h-[3%] bg-transparent border-2 border-red-500 cursor-pointer"
       />
       <Link
-        to="/HadanCampusMap/S06/06/0608"
+        to="/one/S06/06/0608"
         className="absolute top-[24%] left-[76.9%] w-[2.3%] h-[3%] bg-transparent border-2 border-red-500 cursor-pointer"
       />
       <Link
-        to="/HadanCampusMap/S06/06/0609"
+        to="/one/S06/06/0609"
         className="absolute top-[35.5%] left-[71%] w-[2.3%] h-[3%] bg-transparent border-2 border-red-500 cursor-pointer"
       />
       <Link
-        to="/HadanCampusMap/S06/06/0611"
+        to="/one/S06/06/0611"
         className="absolute top-[66%] left-[63.3%] w-[2.3%] h-[3%] bg-transparent border-2 border-red-500 cursor-pointer"
       />
       <Link
-        to="/HadanCampusMap/S06/06/0633"
+        to="/one/S06/06/0633"
         className="absolute top-[49%] left-[29.5%] w-[2.3%] h-[3%] bg-transparent border-2 border-red-500 cursor-pointer"
       />
     </div>
