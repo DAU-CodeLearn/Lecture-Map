@@ -16,12 +16,12 @@ const loadLecture = async (req, res) => {
 };
 
 const classroomLecture = async (req, res) => {
-    const { build, roomNum, week } = req.body;
+    const { build, roomNum } = req.body;
 
     try{
-        const lectures = await Lecture.findRoom({ build, roomNum, week });
+        const lectures = await Lecture.findRoom({ build, roomNum });
         if(!lectures.length){
-            return res.status(404).json({ message: 'No lectures found in', build, roomNum, week});
+            return res.status(404).json({ message: 'No lectures found in', build, roomNum });
         }
 
         res.status(200).json({ lectures });
@@ -56,9 +56,25 @@ const classroomLectureTime = async (req, res) => {
     }
 };
 
+const classroomLectureWeek = async (req, res) => {
+    const { build, roomNum, week } = req.body;
+
+    try{
+        const lectures = await Lecture.findRoom({ build, roomNum, week });
+        if(!lectures.length){
+            return res.status(404).json({ message: 'No lectures found in', build, roomNum, week});
+        }
+
+        res.status(200).json({ lectures });
+    } catch(err){
+        res.status(500).json({ error: err.message });
+    }
+};
+
 module.exports = {
     loadLecture,
     classroomLecture,
     classroomLectureFloor,
-    classroomLectureTime
+    classroomLectureTime,
+    classroomLectureWeek
 };

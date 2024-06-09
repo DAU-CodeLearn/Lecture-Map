@@ -9,10 +9,9 @@ const loadUserSchedule = async (req, res) => {
         if(!lecture.length){
             return res.status(404).json({ message: 'No lectures found in', id });
         }
-        console.log("success");
+
         res.status(200).json({ lecture });
     } catch(err){
-        console.log("fail");
         res.status(500).json({ error: err.message });
     }
 };

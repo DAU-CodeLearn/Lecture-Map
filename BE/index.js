@@ -25,11 +25,13 @@ app.use('/api/userschedule',userscheduleRoutes);
 app.post('/login', usersRoutes);
 app.post('/register', usersRoutes);
 app.post('/checkId', usersRoutes);
+app.post('/changePW', usersRoutes);
 
 app.post('/lectures', lectureRoutes);
 app.post('/classroom', lectureRoutes);
 app.post('/classroomfloor', lectureRoutes);
 app.post('/classroomtime', lectureRoutes);
+app.post('/classroomweek', lectureRoutes);
 
 app.post('/myschedule', userscheduleRoutes);
 

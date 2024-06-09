@@ -91,8 +91,8 @@ function TimeTable({ build, roomNum }) {
         .then((res) => res.json())
         .then((data) => {
           console.log("Fetched data:", data);
-          if (Array.isArray(data.lecture)) {
-            setTimetable(data.lecture);
+          if (Array.isArray(data.lectures)) {
+            setTimetable(data.lectures);
           } else {
             console.error("Received non-array data");
           }
