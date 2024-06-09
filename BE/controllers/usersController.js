@@ -1,6 +1,6 @@
 // BE/controllers/authController.js
 const { decodeBase64 } = require('bcryptjs');
-const User = require('../models/user');
+const User = require('../models/Users');
 const jwt = require('jsonwebtoken');
 
 const registerUser = async (req, res) => {
@@ -12,10 +12,8 @@ const registerUser = async (req, res) => {
     if (existingUser) {
       return res.status(400).json({ message: 'User already exists' });
     }
-    console.log("1");
     // 새로운 사용자 생성
     const user = await User.create({ studentId, id, password, name });
-    console.log("2");
     res.status(201).json({messae: "Register success"});
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -39,7 +37,7 @@ const loginUser = async (req, res) => {
     }
     
     // JWT 토큰 생성
-    const token = jwt.sign({ tokenId: user.user_id, tokenName: user.username }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ tokenId: user.user_id, tokenName: user.username, tokenStudentId: user.student_id }, process.env.JWT_SECRET, {
       expiresIn: '1h'
     });
     
@@ -64,8 +62,20 @@ const checkId = async (req, res) => {
   }
 };
 
+const changePassword = async (req, res) => {
+  const { id, password } = req.body;
+
+  try{
+    const result = await User.updatePassword({ id, password });
+    console.log(result.message);
+  } catch(err){
+    console.error('비밀번호 변경 중 오류 발생: ', err);
+  }
+};
+
 module.exports = {
   registerUser,
   loginUser,
-  checkId
+  checkId,
+  changePassword
 };

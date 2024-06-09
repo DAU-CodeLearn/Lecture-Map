@@ -1,4 +1,4 @@
-import mapSrc from "../../assets/S06/6th.png";
+import mapSrc from "../../assets/S06/S06F7.png";
 import { Link } from "react-router-dom";
 
 export default function S06Sixth() {

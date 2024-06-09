@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
@@ -75,33 +75,8 @@ const StyledTd = styled.td`
   background-color: ${(props) => props.color || "transparent"};
 `;
 
-function TimeTable({ build, roomNum }) {
-  const [timetable, setTimetable] = useState([]);
+function MyTimeTableCreate({ timetable }) {
   const colorMap = {}; // lecture_code와 lecture_id 조합에 따라 색상을 매핑하기 위한 객체
-
-  useEffect(() => {
-    const fetchTimetable = () => {
-      fetch("http://localhost:8080/classroom", {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ roomNum, build }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log("Fetched data:", data);
-          if (Array.isArray(data.lectures)) {
-            setTimetable(data.lectures);
-          } else {
-            console.error("Received non-array data");
-          }
-        })
-        .catch((error) => console.error("Error:", error));
-    };
-
-    fetchTimetable();
-  }, [build, roomNum]);
 
   const mergeLectures = (lectures) => {
     const merged = Array.from({ length: periods.length }, () =>
@@ -166,9 +141,15 @@ function TimeTable({ build, roomNum }) {
   );
 }
 
-TimeTable.propTypes = {
-  build: PropTypes.string.isRequired,
-  roomNum: PropTypes.string.isRequired,
+MyTimeTableCreate.propTypes = {
+  timetable: PropTypes.arrayOf(PropTypes.shape({
+    lecture_code: PropTypes.string.isRequired,
+    lecture_id: PropTypes.string.isRequired,
+    lecturename: PropTypes.string.isRequired,
+    week: PropTypes.oneOf(days).isRequired,
+    lecture_start: PropTypes.number.isRequired,
+    lecture_end: PropTypes.number.isRequired,
+  })).isRequired,
 };
 
-export default TimeTable;
+export default MyTimeTableCreate;

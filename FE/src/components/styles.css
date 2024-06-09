@@ -1,4 +1,5 @@
 /* styles.css */
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap');
 .dynamic-circle {
     position: absolute;
     background-color: transparent;
@@ -6,4 +7,8 @@
     border-radius: 50%;
     cursor: pointer;
   }
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+
+  .custom-font {
+  font-family: "Gothic A1", sans-serif; /* 원하는 글꼴로 변경하세요 */
+}
+
