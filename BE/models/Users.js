@@ -43,9 +43,9 @@ class User {
   /** user_id를 이용해서 비밀번호를 변경 */
   static async updatePassword(userData){
     return new Promise(async (resolve,reject) => {
-      const { id, password } = userData;
+      const { id, repassword } = userData;
       const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(password, salt);
+      const hashedPassword = await bcrypt.hash(repassword, salt);
 
       const query = 'UPDATE users SET password = ? WHERE user_id = ?';
       connection.query(query, [hashedPassword, id], (err, results) => {

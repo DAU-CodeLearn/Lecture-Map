@@ -66,13 +66,13 @@ export default function ChangePassword() {
       }),
     })
       .then((response) => {
-        if (!response.ok) {
+        if (response.status !== 200) {
           throw new Error("비밀번호 변경에 실패했습니다.");
         }
         return response.json();
       })
       .then((data) => {
-        alert(data.message || "비밀번호가 성공적으로 변경되었습니다.");
+        alert("비밀번호가 성공적으로 변경되었습니다.");
         // 비밀번호 변경이 성공하면 필드를 초기화합니다.
         setCurrentPassword("");
         setNewPassword("");
