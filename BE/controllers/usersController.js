@@ -66,8 +66,21 @@ const changePassword = async (req, res) => {
   const { id, password } = req.body;
 
   try{
-    const result = await User.updatePassword({ id, password });
+    // 사용자 확인
+    const user = await User.findOne({ id });
+    if(!user){
+      return res.status(400).json({ message: 'User not found' });
+    }
+        
+    // 비밀번호 일치 확인
+    const isMatch = await User.matchPassword(user.password, password);
+    if(!isMatch){
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+    // 비밀번호 변경
+    const result = await User.updatePassword({ id, repassword });
     console.log(result.message);
+    
   } catch(err){
     console.error('비밀번호 변경 중 오류 발생: ', err);
   }
