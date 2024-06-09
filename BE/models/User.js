@@ -31,8 +31,9 @@ class User {
       });
     });
   }
-
-  static async matchPassword(storedPassword, enteredPassword) {
+ 
+  /** 입력한 비밀번호와 DB의 비밀번호 일치 확인 */
+  static async matchPassword(storedPassword, enteredPassword){
     return bcrypt.compare(enteredPassword, storedPassword);
   }
 
