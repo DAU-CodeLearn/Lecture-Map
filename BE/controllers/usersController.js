@@ -63,7 +63,7 @@ const checkId = async (req, res) => {
 };
 
 const changePassword = async (req, res) => {
-  const { id, password } = req.body;
+  const { id, password, repassword } = req.body;
 
   try{
     // 사용자 확인
