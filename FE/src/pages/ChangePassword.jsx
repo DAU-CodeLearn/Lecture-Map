@@ -52,7 +52,7 @@ export default function ChangePassword() {
     }
 
     const { tokenId } = jwtDecode(token);
-
+    console.log(tokenId);
     fetch("http://localhost:8080/changePW", {
       method: "POST",
       headers: {
@@ -61,8 +61,8 @@ export default function ChangePassword() {
       },
       body: JSON.stringify({
         id: tokenId,
-        currentPassword: currentPassword,
-        newPassword: newPassword,
+        password: currentPassword,
+        repassword: newPassword,
       }),
     })
       .then((response) => {
