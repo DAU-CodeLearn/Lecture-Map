@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
+import '../components/styles.css'; // CSS 파일 임포트
+
 export default function MyPageInfo() {
   const [userInfo, setUserInfo] = useState(null);
 
@@ -21,32 +23,40 @@ export default function MyPageInfo() {
       }
     }
   }, []);
-  //토큰 이용해 유저의 id를 추출하는거 까지 했음. 이 아이디로 서버에서 유저 정보 받아와서 뿌려줘야 함.
 
   return (
-    <div className="flex flex-col items-center p-4">
-      {userInfo && (
-        <>
-          <div className="flex items-center mb-4">
-            <p className="font-bold w-16">이름</p>
-            <div className="border border-black p-2 w-48 text-left pl-4">
-              {userInfo.name}
+    <div className="flex flex-col justify-center items-center p-8">
+      <h1 className="text-3xl font-bold mb-4 custom-font">{"< 기본 회원 정보 >"}</h1>
+      <div className="grid grid-cols-2 gap-0 border border-black" style={{ width: '80%', maxWidth: '600px' }}>
+        {userInfo && (
+          <>
+            <div className="flex items-center justify-center border-t-2 bg-gray-300 border border-black p-4 h-20">
+              <p style={{ fontSize: "20pt" }} className="font-bold custom-font text-left">이름</p>
             </div>
-          </div>
-          <div className="flex items-center mb-4">
-            <p className="font-bold w-16">아이디</p>
-            <div className="border border-black p-2 w-48 text-left pl-4">
-              {userInfo.id}
+            <div className="flex items-center border border-t-2 border-black p-4 h-20">
+              <div className="w-full text-left pl-6 font-bold custom-font" style={{ fontSize: "16pt" }}>
+                {userInfo.name}
+              </div>
             </div>
-          </div>
-          <div className="flex items-center">
-            <p className="font-bold w-16">학번</p>
-            <div className="border border-black p-2 w-48 text-left pl-4">
-              {userInfo.studentId}
+            <div className="flex items-center justify-center bg-gray-300 border border-black p-4 h-20">
+              <p style={{ fontSize: "20pt" }} className="font-bold custom-font">아이디</p>
             </div>
-          </div>
-        </>
-      )}
+            <div className="flex items-center border border-black p-4 h-20">
+              <div className="w-full text-left pl-6 font-bold custom-font" style={{ fontSize: "16pt" }}>
+                {userInfo.id}
+              </div>
+            </div>
+            <div className="flex items-center justify-center bg-gray-300 border border-black p-4 h-20">
+              <p style={{ fontSize: "20pt"}} className="font-bold custom-font">학번</p>
+            </div>
+            <div className="flex items-center border border-black p-4 h-20 ">
+              <div className="w-full text-left pl-6 font-bold custom-font " style={{ fontSize: "16pt" }}>
+                {userInfo.studentId}
+              </div>
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 }
