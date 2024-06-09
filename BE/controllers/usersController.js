@@ -80,6 +80,7 @@ const changePassword = async (req, res) => {
     // 비밀번호 변경
     const result = await User.updatePassword({ id, repassword });
     console.log(result.message);
+    return res.status(200).json({ message: 'ChangePW success' });
     
   } catch(err){
     console.error('비밀번호 변경 중 오류 발생: ', err);

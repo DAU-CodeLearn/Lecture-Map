@@ -1,13 +1,11 @@
 import React, { useState } from "react";
+import {jwtDecode} from "jwt-decode";
 import '../components/styles.css'; // CSS 파일 임포트
 
 export default function ChangePassword() {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
-  // Fake database password for demonstration purposes
-  const fakeDatabasePassword = "currentPassword123";
 
   const validate = () => {
     let errorMessage = "";
@@ -29,26 +27,60 @@ export default function ChangePassword() {
       return;
     }
 
-    // Step 1: Check if current password matches the database password
-    if (currentPassword !== fakeDatabasePassword) {
-      errorMessage += "현재 비밀번호가 올바르지 않습니다.\n";
-    } else {
-      // Step 2: Check if new password matches confirm password
-      if (newPassword !== confirmPassword) {
-        errorMessage += "변경할 비밀번호와 비밀번호 확인이 일치해야 합니다.\n";
-      }
+    // Step 1: Check if new password matches confirm password
+    if (newPassword !== confirmPassword) {
+      errorMessage += "변경할 비밀번호와 비밀번호 확인이 일치해야 합니다.\n";
+    }
 
-      // Step 3: Check if new password meets the criteria
-      if (newPassword.length < 8 || !/[A-Za-z]/.test(newPassword) || !/[0-9]/.test(newPassword)) {
-        errorMessage += "변경할 비밀번호는 영어와 숫자를 섞어 8글자 이상이어야 합니다.\n";
-      }
+    // Step 2: Check if new password meets the criteria
+    if (newPassword.length < 8 || !/[A-Za-z]/.test(newPassword) || !/[0-9]/.test(newPassword)) {
+      errorMessage += "변경할 비밀번호는 영어와 숫자를 섞어 8글자 이상이어야 합니다.\n";
     }
 
     if (errorMessage) {
       alert(errorMessage);
     } else {
-      alert("비밀번호가 성공적으로 변경되었습니다.");
+      changePassword();
     }
+  };
+
+  const changePassword = () => {
+    const token = localStorage.getItem("authToken");
+    if (!token) {
+      alert("인증 토큰이 없습니다. 다시 로그인해주세요.");
+      return;
+    }
+
+    const { tokenId } = jwtDecode(token);
+    console.log(tokenId);
+    fetch("http://localhost:8080/changePW", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        id: tokenId,
+        password: currentPassword,
+        repassword: newPassword,
+      }),
+    })
+      .then((response) => {
+        if (response.status !== 200) {
+          throw new Error("비밀번호 변경에 실패했습니다.");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        alert("비밀번호가 성공적으로 변경되었습니다.");
+        // 비밀번호 변경이 성공하면 필드를 초기화합니다.
+        setCurrentPassword("");
+        setNewPassword("");
+        setConfirmPassword("");
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
   };
 
   return (
