@@ -15,6 +15,32 @@ const loadLecture = async (req, res) => {
     }
 };
 
+const insertLecture = async(req, res) => {
+    const { building, lectureFloor, lectureRoom, lectureCode, lectureId, lectureName, week, lectureStart, lectureEnd } = req.body;
+
+    try{
+        const lectureCheck = await Lecture.findLecture({ building, lectureFloor, lectureRoom, lectureCode, lectureId, lectureName, week, lectureStart, lectureEnd });
+        if(lectureCheck){
+            return res.status(400).json({ message: 'Lectuer already exists' });
+        }
+        const lecture = await Lecture.insertLecture({ building, lectureFloor, lectureRoom, lectureCode, lectureId, lectureName, week, lectureStart, lectureEnd });
+        res.status(201).json({messae: "Lecture upload success"});
+    } catch(err){
+        res.status(500).json({ error: err.message });
+    }
+};
+
+const deleteLecture = async(req, res) => {
+    const { building, lectureFloor, lectureCode, lectureId, lectureName } = req.body;
+
+    try{
+        const lecture = await Lecture.deleteLecture({ building, lectureFloor, lectureCode, lectureId, lectureName });
+    } catch(err){
+        res.status(500).json({ error: err.message });
+    }
+};
+
+
 const classroomLecture = async (req, res) => {
     const { build, roomNum } = req.body;
 
