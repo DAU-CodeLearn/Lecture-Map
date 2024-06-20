@@ -33,6 +33,7 @@ import MyPageLayout from "./pages/layout/MyPageLayout";
 import MyPageInfo from "./pages/MyPageInfo"
 import ChangePassword from "./pages/ChangePassword";
 import UserTimeTable from "./pages/UserTimeTable";
+import InsertTimeTable from "./pages/InsertTimeTable";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -46,10 +47,15 @@ const router = createBrowserRouter([
     path: "/register",
     element: <RegisterPage />,
   },
+
   {
     element: <IndexLayout />,
     children: [
       { path: "/HadanCampusMap", element: <HadanCampusMap /> },
+      {
+        path: "/addTime",
+        element: <InsertTimeTable />
+      },
       {
         element: <MyPageLayout />,
         children: [

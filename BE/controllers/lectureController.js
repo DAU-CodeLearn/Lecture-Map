@@ -44,9 +44,9 @@ const classroomLectureFloor = async (req, res) => {
 };
 
 const classroomLectureTime = async (req, res) => {
-    const { build, floor, week, startTime } = req.body;
+    const { build, floor, week, time } = req.body;
     try{
-        const lectures = await Lecture.findRoom_time({ build, floor, week, startTime });
+        const lectures = await Lecture.findRoom_time({ build, floor, week, time });
         if(!lectures.length){
             return res.status(404).json({ message: 'No lectures found in ', build, floor, week, startTime });
         }

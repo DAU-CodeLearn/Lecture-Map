@@ -43,12 +43,12 @@ class Lecture {
         });
     }
     /* 건물번호 층수 요일 시작시간을 이용해 시간표 호출 */
-    static async findRoom_time(roomData){
+    static async findRoom_time(roomData) {
         return new Promise(async (resolve, reject) => {
-            const { build, floor, week, startTime } = roomData;
-            const query = 'SELECT * FROM lecture WHERE building = ? AND lecture_floor = ? AND week = ? AND lecture_start = ?'
-            connection.query(query, [build, floor, week, startTime], (err, results) => {
-                if(err){
+            const { build, floor, week, time } = roomData;
+            const query = 'SELECT * FROM lecture WHERE building = ? AND lecture_floor = ? AND week = ? AND ? BETWEEN lecture_start AND lecture_end';
+            connection.query(query, [build, floor, week, time], (err, results) => {
+                if (err) {
                     return reject(err);
                 }
                 resolve(results);
