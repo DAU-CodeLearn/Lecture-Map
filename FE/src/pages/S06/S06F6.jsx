@@ -79,26 +79,35 @@ export default function S06Sixth() {
   };
 
   const roomLinks = [
-    { room: "0601", top: "38%", left: "28.5%" },
-    { room: "0602", top: "38%", left: "34.8%" },
-    { room: "0603", top: "38%", left: "40.7%" },
-    { room: "0604", top: "38%", left: "50.1%" },
-    { room: "0606", top: "16%", left: "73%" },
-    { room: "0607", top: "27.5%", left: "67%" },
-    { room: "0608", top: "24%", left: "76.9%" },
-    { room: "0609", top: "35.5%", left: "71%" },
-    { room: "0611", top: "66%", left: "63.3%" },
-    { room: "0633", top: "49%", left: "29.5%" },
+    { room: "0601", top: "38%", left: "28.5%", width: "2.3%", height: "3%" },
+    { room: "0602", top: "38%", left: "34.8%", width: "2.3%", height: "3%" },
+    { room: "0603", top: "38%", left: "40.7%", width: "2.3%", height: "3%" },
+    { room: "0604", top: "38%", left: "50.1%", width: "2.3%", height: "3%" },
+    { room: "0606", top: "16%", left: "73%", width: "2.3%", height: "3%" },
+    { room: "0607", top: "27.5%", left: "67%", width: "2.3%", height: "3%" },
+    { room: "0608", top: "24%", left: "76.9%", width: "2.3%", height: "3%" },
+    { room: "0609", top: "35.5%", left: "71%", width: "2.3%", height: "3%" },
+    { room: "0611", top: "66%", left: "63.3%", width: "2.3%", height: "3%" },
+    { room: "0633", top: "49%", left: "29.5%", width: "2.3%", height: "3%" },
   ];
 
   return (
     <div className="relative">
       <img src={mapSrc} alt="Map" className="w-full h-[93vh] object-contain" />
-      {roomLinks.map(({ room, top, left }) => (
+      {roomLinks.map(({ room, top, left, width, height }) => (
         <Link
           key={room}
           to={`/HadanCampusMap/S06/06/${room}`}
-          className={`absolute ${isNotHighlighted(room) ? "bg-yellow-300 bg-opacity-50" : "bg-transparent"} top-[${top}] left-[${left}] w-[2.3%] h-[3%] border-2 border-red-500 cursor-pointer`}
+          style={{
+            position: "absolute",
+            top: top,
+            left: left,
+            width: width,
+            height: height,
+            backgroundColor: isNotHighlighted(room) ? "rgba(255, 255, 0, 0.5)" : "transparent",
+            border: "2px solid red",
+            cursor: "pointer"
+          }}
         />
       ))}
     </div>

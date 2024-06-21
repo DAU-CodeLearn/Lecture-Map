@@ -47,8 +47,8 @@ export default function MenuBar() {
         <Link to="/MyTimeTable">
           <button>내 시간표</button>
         </Link>
-        <Link to="/three">
-          <button>페이지3</button>
+        <Link to="/addTime">
+          <button>관리자 시간표</button>
         </Link>
         <Link to="/four">
           <button>페이지4</button>

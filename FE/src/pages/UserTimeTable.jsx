@@ -120,7 +120,7 @@ export default function UserTimeTable() {
   };
 
   return (
-    <div>
+    <div className="h-[93vh]">
       <p>개인 시간표 페이지</p>
       <div>
         <FormRow>
