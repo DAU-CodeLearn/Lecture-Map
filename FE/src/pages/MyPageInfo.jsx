@@ -10,7 +10,7 @@ export default function MyPageInfo() {
     if (token) {
       try {
         const decoded = jwtDecode(token);
-        console.log(decoded); // 디버깅을 위해 디코딩된 토큰 출력
+        //console.log(decoded); // 디버깅을 위해 디코딩된 토큰 출력
         setUserInfo({
           id: decoded.tokenId,
           name: decoded.tokenName,

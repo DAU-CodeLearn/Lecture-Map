@@ -94,7 +94,7 @@ export default function AddSchedule() {
         }
       })
       .then((data) => {
-        console.log("Insert response:", data);
+        //console.log("Insert response:", data);
         // 필요한 경우 추가적인 작업을 여기서 수행할 수 있습니다.
       })
       .catch((error) => console.error("Error:", error));
@@ -125,7 +125,7 @@ export default function AddSchedule() {
         }
       })
       .then((data) => {
-        console.log("Delete response:", data);
+        //console.log("Delete response:", data);
         // 필요한 경우 추가적인 작업을 여기서 수행할 수 있습니다.
       })
       .catch((error) => console.error("Error:", error));

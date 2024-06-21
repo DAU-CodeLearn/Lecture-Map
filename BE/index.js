@@ -38,6 +38,7 @@ app.post('/deletelecture', lectureRoutes);
 
 app.post('/myschedule', userscheduleRoutes);
 app.post('/insertuserschedule', userscheduleRoutes);
+app.post('/deleteuserschedule', userscheduleRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

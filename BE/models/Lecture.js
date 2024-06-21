@@ -63,16 +63,10 @@ class Lecture {
     static async findLecture_code(lectureInfo) {
         return new Promise((resolve, reject) => {
             const { lectureCode, lectureId } = lectureInfo;
-            console.log(`lectureCode: ${lectureCode}, lectureId: ${lectureId}`);
             const query = 'SELECT lecture_PK FROM lecture WHERE lecture_code = ? AND lecture_id = ?';
             connection.query(query, [lectureCode, lectureId], (err, results) => {
                 if (err) return reject(err);
-                if (results.length > 0) {
-                    console.log(`results: ${results[0].lecture_PK}`);
-                    resolve(results[0].lecture_PK);
-                } else {
-                    resolve(null); // 또는 다른 처리
-                }
+                resolve(results);
             });
         });
     }
@@ -88,7 +82,6 @@ class Lecture {
                     console.log('Query Error');
                     return reject(err);
                 }
-                console.log(results);
                 resolve(results);
             });
         });

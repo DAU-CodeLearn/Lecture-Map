@@ -41,7 +41,7 @@ export default function UserTimeTable() {
     if (token) {
       try {
         const decoded = jwtDecode(token);
-        console.log(decoded); // 디버깅을 위해 디코딩된 토큰 출력
+        //console.log(decoded); // 디버깅을 위해 디코딩된 토큰 출력
         setUserInfo({
           id: decoded.tokenId,
           name: decoded.tokenName,
@@ -67,7 +67,7 @@ export default function UserTimeTable() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("Fetched data:", data);
+        //console.log("Fetched data:", data);
         if (Array.isArray(data.lecture)) {
           setTimetable(data.lecture);
         } else {
@@ -113,15 +113,47 @@ export default function UserTimeTable() {
         }
       })
       .then((data) => {
-        console.log("Insert response:", data);
+        //console.log("Insert response:", data);
         // 필요한 경우 추가적인 작업을 여기서 수행할 수 있습니다.
       })
       .catch((error) => console.error("Error:", error));
-    console.log(`id: ${userInfo.id}, code: ${lectureCode}, ID: ${lectureId}`);
+    //console.log(`id: ${userInfo.id}, code: ${lectureCode}, ID: ${lectureId}`);
   };
 
   const handleDelete = () => {
     // 삭제 기능 구현 필요
+    if (!userInfo) {
+      console.error("User info is not available.");
+      return;
+    }
+
+    fetch("http://localhost:8080/deleteuserschedule", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: userInfo.id,
+        lectureCode: lectureCode,
+        lectureId: lectureId,
+      }),
+    })
+      .then((res) => {
+        if (res.status === 201) {
+          alert("강의가 성공적으로 삭제되었습니다!");
+          fetchTimetable(userInfo.id); // 삽입 후 시간표 다시 불러오기
+          return res.json();
+        } else {
+          throw new Error("삭제에 실패했습니다.");
+        }
+      })
+      .then((data) => {
+        //console.log("Delete response:", data);
+        // 필요한 경우 추가적인 작업을 여기서 수행할 수 있습니다.
+      })
+      .catch((error) => console.error("Error:", error));
+    //console.log(`id: ${userInfo.id}, code: ${lectureCode}, ID: ${lectureId}`);
+    //deleteuserschedule
   };
 
   return (

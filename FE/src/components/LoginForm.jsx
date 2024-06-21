@@ -88,7 +88,7 @@ export default function LoginForm() {
         if(data != null) {  
           alert("로그인 성공");
           login(data.token); // 로그인 처리
-          console.log(data);
+          //console.log(data);
           navigate("/HadanCampusMap");
         }
         else {
