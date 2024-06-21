@@ -57,24 +57,24 @@ export default function S06Sixth() {
         build: buildnum,
         floor: floor,
         week: day,
-        time: tmp_peroid,
+        time: period,
       }),
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("Fetched data:", data);
+        //console.log("Fetched data:", data);
         setTimetable(data.lectures || []);
       })
       .catch((error) => console.error("Error:", error));
   }, []);
 
-  const isNotHighlighted = (room) => {
-    return !timetable.some(
+  const isHighlighted = (room) => {
+    return timetable.some(
       (lecture) =>
         lecture.lecture_room === room &&
         lecture.lecture_start <= tmp_peroid &&
         lecture.lecture_end >= tmp_peroid &&
-        lecture.week === today
+        lecture.week === tmp_week
     );
   };
 
@@ -97,8 +97,7 @@ export default function S06Sixth() {
             left: left,
             width: width,
             height: height,
-            backgroundColor: isNotHighlighted(room) ? "rgba(255, 255, 0, 0.5)" : "transparent",
-            border: "2px solid red",
+            backgroundColor: isHighlighted(room) ? "rgba(255, 0, 0, 0.5)" : "rgba(0, 255, 0, 0.5)",
             cursor: "pointer"
           }}
         />
