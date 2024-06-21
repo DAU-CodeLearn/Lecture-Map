@@ -37,7 +37,7 @@ const loginUser = async (req, res) => {
     }
     
     // JWT 토큰 생성
-    const token = jwt.sign({ tokenId: user.user_id, tokenName: user.username, tokenStudentId: user.student_id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ tokenId: user.user_id, tokenName: user.username, tokenStudentId: user.student_id, tokenManager: user.manager }, process.env.JWT_SECRET, {
       expiresIn: '1h'
     });
     

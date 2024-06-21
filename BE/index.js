@@ -33,7 +33,12 @@ app.post('/classroomfloor', lectureRoutes);
 app.post('/classroomtime', lectureRoutes);
 app.post('/classroomweek', lectureRoutes);
 
+app.post('/insertlecture', lectureRoutes);
+app.post('/deletelecture', lectureRoutes);
+
 app.post('/myschedule', userscheduleRoutes);
+app.post('/insertuserschedule', userscheduleRoutes);
+app.post('/deleteuserschedule', userscheduleRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

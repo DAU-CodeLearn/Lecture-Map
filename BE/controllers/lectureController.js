@@ -15,6 +15,35 @@ const loadLecture = async (req, res) => {
     }
 };
 
+const insertLecture = async(req, res) => {
+    const { building, lectureFloor, lectureRoom, lectureCode, lectureId, lectureName, week, lectureStart, lectureEnd } = req.body;
+
+    try{
+        const lectureCheck = await Lecture.findLecture({ building, lectureFloor, lectureRoom, lectureCode, lectureId, lectureName, week, lectureStart, lectureEnd });
+        if(lectureCheck.length > 0){
+            return res.status(400).json({ message: 'Lectuer already exists' });
+        }
+        const lecture = await Lecture.insertLecture({ building, lectureFloor, lectureRoom, lectureCode, lectureId, lectureName, week, lectureStart, lectureEnd });
+        res.status(201).json({messae: "Lecture upload success"});
+    } catch(err){
+        res.status(500).json({ error: err.message });
+    }
+};
+
+const deleteLecture = async(req, res) => {
+    const { building, lectureFloor, lectureCode, lectureId, lectureRoom } = req.body;
+
+    try{
+        const lecture = await Lecture.deleteLecture({ building, lectureFloor, lectureCode, lectureId, lectureRoom });
+        if(lecture === 1) {
+            res.status(201).json({message: "삭제 성공"});
+        }
+    } catch(err){
+        res.status(500).json({ error: err.message });
+    }
+};
+
+
 const classroomLecture = async (req, res) => {
     const { build, roomNum } = req.body;
 
@@ -44,9 +73,9 @@ const classroomLectureFloor = async (req, res) => {
 };
 
 const classroomLectureTime = async (req, res) => {
-    const { build, floor, week, startTime } = req.body;
+    const { build, floor, week, time } = req.body;
     try{
-        const lectures = await Lecture.findRoom_time({ build, floor, week, startTime });
+        const lectures = await Lecture.findRoom_time({ build, floor, week, time });
         if(!lectures.length){
             return res.status(404).json({ message: 'No lectures found in ', build, floor, week, startTime });
         }
@@ -76,5 +105,7 @@ module.exports = {
     classroomLecture,
     classroomLectureFloor,
     classroomLectureTime,
-    classroomLectureWeek
+    classroomLectureWeek,
+    deleteLecture,
+    insertLecture
 };

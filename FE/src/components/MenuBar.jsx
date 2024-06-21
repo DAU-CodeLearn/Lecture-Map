@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext";
@@ -14,10 +14,11 @@ export default function MenuBar() {
     if (token) {
       try {
         const decoded = jwtDecode(token);
-        console.log(decoded); // 디버깅을 위해 디코딩된 토큰 출력
+        //console.log(decoded); // 디버깅을 위해 디코딩된 토큰 출력
         setUserInfo({
           id: decoded.tokenId,
           name: decoded.tokenName,
+          manager: decoded.tokenManager,
           issuedAt: new Date(decoded.iat * 1000).toLocaleString(),
           expiresAt: new Date(decoded.exp * 1000).toLocaleString()
         });
@@ -26,9 +27,6 @@ export default function MenuBar() {
       }
     }
   }, []);
-
-
-
 
   const handleLogout = () => {
     logout();
@@ -47,21 +45,19 @@ export default function MenuBar() {
         <Link to="/MyTimeTable">
           <button>내 시간표</button>
         </Link>
-        <Link to="/three">
-          <button>페이지3</button>
-        </Link>
-        <Link to="/four">
-          <button>페이지4</button>
-        </Link>
+        {userInfo && userInfo.manager === 1 && (
+          <Link to="/addTime">
+            <button>관리자 시간표</button>
+          </Link>
+        )}
       </div>
       <div className="w-1/6 text-center flex justify-around">
-        <Link to="/MyPage">
-        {userInfo && (
-          <button>
-            {userInfo.name}님 환영합니다.
-          </button>
-        )}
-
+        <Link to="/MyPage/Info">
+          {userInfo && (
+            <button>
+              {userInfo.name}님 환영합니다.
+            </button>
+          )}
         </Link>
         <button onClick={handleLogout}>로그아웃</button>
       </div>

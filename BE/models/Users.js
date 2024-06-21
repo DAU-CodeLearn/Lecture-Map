@@ -24,7 +24,7 @@ class User {
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(password, salt);
       
-      const query = 'INSERT INTO users (student_id, user_id, password, username, created_at) VALUES (?, ?, ?, ?, NOW())';
+      const query = 'INSERT INTO users (student_id, user_id, password, username) VALUES (?, ?, ?, ?)';
       connection.query(query, [studentId, id, hashedPassword, name], (err, results) => {
         if (err) {
           console.log(`쿼리 오류 : ${studentId} ${id} ${password} ${name}`);
