@@ -49,14 +49,86 @@ export default function AddSchedule() {
   });
 
   const handleFetchTimetable = () => {
+    setShowTimetable(false);
     setSubmittedBuild(build);
     setSubmittedRoomNum(roomNum);
-    setShowTimetable(true);
+    setTimeout(() => setShowTimetable(true), 0);
   };
+  const handleFetchTimetableUpdate = () => {
+    setShowTimetable(false);
+    setSubmittedBuild(lectureData.building);
+    setSubmittedRoomNum(lectureData.lecture_room);
+    setTimeout(() => setShowTimetable(true), 0);
+  }
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setLectureData({ ...lectureData, [name]: value });
+  };
+
+  const handleInsert = () => {
+    fetch("http://localhost:8080/insertlecture", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        building: lectureData.building,
+        lectureFloor: lectureData.lecture_floor,
+        lectureRoom: lectureData.lecture_room,
+        lectureCode: lectureData.lecture_code,
+        lectureId: lectureData.lecture_id,
+        lectureName: lectureData.lecturename,
+        week: lectureData.week,
+        lectureStart: lectureData.lecture_start,
+        lectureEnd: lectureData.lecture_end
+      }),
+    })
+      .then((res) => {
+        if (res.status === 201) {
+          alert("강의가 성공적으로 삽입되었습니다!");
+          handleFetchTimetableUpdate();
+          return res.json();
+        } else {
+          throw new Error("삽입에 실패했습니다.");
+        }
+      })
+      .then((data) => {
+        console.log("Insert response:", data);
+        // 필요한 경우 추가적인 작업을 여기서 수행할 수 있습니다.
+      })
+      .catch((error) => console.error("Error:", error));
+  };
+
+  const handleDelete = () => {
+    const { building, lecture_floor, lecture_room, lecture_code, lecture_id } = lectureData;
+    fetch("http://localhost:8080/deletelecture", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        building: building,
+        lectureRoom: lecture_room,
+        lectureCode: lecture_code,
+        lectureId: lecture_id,
+        lectureFloor: lecture_floor,
+      }),
+    })
+      .then((res) => {
+        if (res.status === 201) {
+          alert("강의가 성공적으로 삭제되었습니다!");
+          handleFetchTimetableUpdate();
+          return res.json();
+        } else {
+          throw new Error("삭제에 실패했습니다.");
+        }
+      })
+      .then((data) => {
+        console.log("Delete response:", data);
+        // 필요한 경우 추가적인 작업을 여기서 수행할 수 있습니다.
+      })
+      .catch((error) => console.error("Error:", error));
   };
 
   return (
@@ -147,7 +219,8 @@ export default function AddSchedule() {
             value={lectureData.lecture_end}
             onChange={handleInputChange}
           />
-          <button>삽입</button>
+          <button onClick={handleInsert}>삽입</button>
+          <button onClick={handleDelete}>삭제</button>
         </FormRow>
       </div>
 

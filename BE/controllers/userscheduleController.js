@@ -19,17 +19,20 @@ const loadUserSchedule = async (req, res) => {
 
 const insertUserSchedule = async (req, res) => {
     const { id, lectureCode, lectureId } = req.body;
-
+    console.log(`id: ${id}, lectureCode: ${lectureCode}, lectureID: ${lectureId}`);
     try{
-        const lecture = await Lecture.findLecture_code({ lectureCode, lectureId });
-        if(!lecture){
+        const lecturePK = await Lecture.findLecture_code({ lectureCode, lectureId });
+        if(!lecturePK){
             return res.status(400).json({ message: 'No Lecture Info' });
         }
-        const userLecture = await UserSchedule.myScheduleCheck({ id, lecture });
-        if(userLecture){
+        console.log(`lecturePK: ${lecturePK}`);
+        const userLecture = await UserSchedule.myScheduleCheck({ id, lecturePK });
+        console.log(userLecture);
+        if(userLecture !== 1){
+            console.log("실패실패");
             return res.status(400).json({ message: 'Lecture already exists' });
         }
-        const userSchedule = await UserSchedule.insertMySchedule({ id, lecture });
+        const userSchedule = await UserSchedule.insertMySchedule({ id, lecturePK });
         res.status(201).json({messae: "User Schedule upload success"});
     } catch(err){
         res.status(500).json({ error: err.message });
@@ -37,5 +40,6 @@ const insertUserSchedule = async (req, res) => {
 }
 
 module.exports = {
-    loadUserSchedule
+    loadUserSchedule,
+    insertUserSchedule
 };

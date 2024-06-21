@@ -8,5 +8,6 @@ router.post('/classroom', lectureController.classroomLecture);
 router.post('/classroomfloor', lectureController.classroomLectureFloor);
 router.post('/classroomtime', lectureController.classroomLectureTime);
 router.post('/classrommweek', lectureController.classroomLectureWeek);
-
+router.post('/insertlecture', lectureController.insertLecture);
+router.post('/deletelecture', lectureController.deleteLecture);
 module.exports = router;
