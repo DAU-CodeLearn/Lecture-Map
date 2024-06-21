@@ -5,4 +5,5 @@ const userscheduleController = require('../../controllers/userscheduleController
 
 router.post('/myschedule', userscheduleController.loadUserSchedule);
 router.post('/insertuserschedule', userscheduleController.insertUserSchedule);
+router.post('/deleteuserschedule', userscheduleController.deleteUserSchedule);
 module.exports = router;

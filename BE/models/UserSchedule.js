@@ -22,7 +22,9 @@ class UserSchedule {
     /** 유저 정보와 강의정보를 이용해 중복확인 */
     static async myScheduleCheck(userLectureInfo){
         return new Promise(async (resolve, reject) => {
+            console.log(`Data: ${JSON.stringify(userLectureInfo)}`);
             const { id, lecturePK } = userLectureInfo;
+            console.log(id); console.log(lecturePK);
             console.log(`myScheduleCheck  ID: ${id},  lecturePK: ${lecturePK}`);
             const query = 'SELECT * FROM userschedule WHERE user_id = ? AND lecture_PK = ?';
             connection.query(query, [id, lecturePK], (err,results) => {
@@ -42,6 +44,20 @@ class UserSchedule {
             connection.query(query, [id, lecturePK], (err,results) => {
                 if(err) return reject(err);
                 console.log("유저 스케줄 삽입 성공");
+                resolve(results);
+            });
+        });
+    }
+
+    /** 유저 강의 정보 삭제 */
+    static async deleteMySchedule(userLectureInfo){
+        return new Promise(async (resolve, reject) => {
+            const { id, lecturePK } = userLectureInfo;
+            console.log(`insertMySchedule  ID: ${id},  lecturePK: ${lecturePK}`);
+            const query = 'DELECT FROM userschedule WHERE user_id = ? AND lecture_PK = ?';
+            connection.query(query, [id, lecturePK], (err, results) => {
+                if(err) return reject(err);
+                console.log("유저 스케줄 삭제 완료");
                 resolve(results);
             });
         });

@@ -67,12 +67,8 @@ class Lecture {
             const query = 'SELECT lecture_PK FROM lecture WHERE lecture_code = ? AND lecture_id = ?';
             connection.query(query, [lectureCode, lectureId], (err, results) => {
                 if (err) return reject(err);
-                if (results.length > 0) {
-                    console.log(`results: ${results[0].lecture_PK}`);
-                    resolve(results[0].lecture_PK);
-                } else {
-                    resolve(null); // 또는 다른 처리
-                }
+                console.log(`results: ${results}`);
+                resolve(results);
             });
         });
     }
