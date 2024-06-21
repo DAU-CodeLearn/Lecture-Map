@@ -72,6 +72,7 @@ export default function UserTimeTable() {
           setTimetable(data.lecture);
         } else {
           console.error("Received non-array data");
+          setTimetable([]); // 비어 있는 경우에도 빈 배열 설정
         }
       })
       .catch((error) => console.error("Error:", error));
@@ -90,7 +91,7 @@ export default function UserTimeTable() {
       console.error("User info is not available.");
       return;
     }
-    
+
     fetch("http://localhost:8080/insertuserschedule", {
       method: "POST",
       headers: {
@@ -116,7 +117,11 @@ export default function UserTimeTable() {
         // 필요한 경우 추가적인 작업을 여기서 수행할 수 있습니다.
       })
       .catch((error) => console.error("Error:", error));
-      console.log(`id: ${userInfo.id}, code: ${lectureCode}, ID: ${lectureId}`);
+    console.log(`id: ${userInfo.id}, code: ${lectureCode}, ID: ${lectureId}`);
+  };
+
+  const handleDelete = () => {
+    // 삭제 기능 구현 필요
   };
 
   return (
@@ -141,9 +146,10 @@ export default function UserTimeTable() {
             className="small"
           />
           <button onClick={handleInsert}>삽입</button>
+          <button onClick={handleDelete}>삭제</button>
         </FormRow>
       </div>
-      {timetable.length > 0 ? <MyTimeTableCreate timetable={timetable} /> : <p>Loading timetable...</p>}
+      <MyTimeTableCreate timetable={timetable} />
     </div>
   );
 }

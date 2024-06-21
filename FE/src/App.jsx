@@ -28,7 +28,6 @@ import S06C0609 from "./pages/S06/6th/S06C0609";
 import S06C0611 from "./pages/S06/6th/S06C0611";
 import S06C0633 from "./pages/S06/6th/S06C0633";
 import HadanCampusMap from "./pages/HadanCampusMap";
-import MyPageSideBar from "./components/MyPageSideBar";
 import MyPageLayout from "./pages/layout/MyPageLayout";
 import MyPageInfo from "./pages/MyPageInfo"
 import ChangePassword from "./pages/ChangePassword";
@@ -41,7 +40,6 @@ import S06C0320 from "./pages/S06/3rd/S06C0320";
 import S06C0321 from "./pages/S06/3rd/S06C0321";
 import S06C0322 from "./pages/S06/3rd/S06C0322";
 import S06C0401 from "./pages/S06/4th/S06C0401";
-import S06C0404 from "./pages/S06/4th/S06C0405";
 import S06C0408 from "./pages/S06/4th/S06C0408";
 import S06C0409 from "./pages/S06/4th/S06C0409";
 import S06C0420 from "./pages/S06/4th/S06C0420";
