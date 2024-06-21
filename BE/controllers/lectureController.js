@@ -20,7 +20,7 @@ const insertLecture = async(req, res) => {
 
     try{
         const lectureCheck = await Lecture.findLecture({ building, lectureFloor, lectureRoom, lectureCode, lectureId, lectureName, week, lectureStart, lectureEnd });
-        if(lectureCheck){
+        if(lectureCheck.length > 0){
             return res.status(400).json({ message: 'Lectuer already exists' });
         }
         const lecture = await Lecture.insertLecture({ building, lectureFloor, lectureRoom, lectureCode, lectureId, lectureName, week, lectureStart, lectureEnd });
@@ -31,10 +31,13 @@ const insertLecture = async(req, res) => {
 };
 
 const deleteLecture = async(req, res) => {
-    const { building, lectureFloor, lectureCode, lectureId, lectureName } = req.body;
+    const { building, lectureFloor, lectureCode, lectureId, lectureRoom } = req.body;
 
     try{
-        const lecture = await Lecture.deleteLecture({ building, lectureFloor, lectureCode, lectureId, lectureName });
+        const lecture = await Lecture.deleteLecture({ building, lectureFloor, lectureCode, lectureId, lectureRoom });
+        if(lecture === 1) {
+            res.status(201).json({message: "삭제 성공"});
+        }
     } catch(err){
         res.status(500).json({ error: err.message });
     }
@@ -102,5 +105,7 @@ module.exports = {
     classroomLecture,
     classroomLectureFloor,
     classroomLectureTime,
-    classroomLectureWeek
+    classroomLectureWeek,
+    deleteLecture,
+    insertLecture
 };

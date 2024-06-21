@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {jwtDecode}  from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import MyTimeTableCreate from "../components/MyTimeTableCreate";
 import styled from "styled-components";
 
@@ -50,28 +50,32 @@ export default function UserTimeTable() {
           expiresAt: new Date(decoded.exp * 1000).toLocaleString(),
         });
         // Fetch timetable using the user's ID
-        fetch("http://localhost:8080/myschedule", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ id: decoded.tokenId }),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            console.log("Fetched data:", data);
-            if (Array.isArray(data.lecture)) {
-              setTimetable(data.lecture);
-            } else {
-              console.error("Received non-array data");
-            }
-          })
-          .catch((error) => console.error("Error:", error));
+        fetchTimetable(decoded.tokenId);
       } catch (error) {
         console.error("Invalid token", error);
       }
     }
   }, []);
+
+  const fetchTimetable = (userId) => {
+    fetch("http://localhost:8080/myschedule", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: userId }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Fetched data:", data);
+        if (Array.isArray(data.lecture)) {
+          setTimetable(data.lecture);
+        } else {
+          console.error("Received non-array data");
+        }
+      })
+      .catch((error) => console.error("Error:", error));
+  };
 
   const handleLectureCodeChange = (e) => {
     setLectureCode(e.target.value);
@@ -82,8 +86,37 @@ export default function UserTimeTable() {
   };
 
   const handleInsert = () => {
-    // 실제 삽입 동작은 여기에서 구현할 수 있습니다.
-    console.log(`Inserting lecture with code: ${lectureCode} and ID: ${lectureId}`);
+    if (!userInfo) {
+      console.error("User info is not available.");
+      return;
+    }
+    
+    fetch("http://localhost:8080/insertuserschedule", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: userInfo.id,
+        lectureCode: lectureCode,
+        lectureId: lectureId,
+      }),
+    })
+      .then((res) => {
+        if (res.status === 201) {
+          alert("강의가 성공적으로 삽입되었습니다!");
+          fetchTimetable(userInfo.id); // 삽입 후 시간표 다시 불러오기
+          return res.json();
+        } else {
+          throw new Error("삽입에 실패했습니다.");
+        }
+      })
+      .then((data) => {
+        console.log("Insert response:", data);
+        // 필요한 경우 추가적인 작업을 여기서 수행할 수 있습니다.
+      })
+      .catch((error) => console.error("Error:", error));
+      console.log(`id: ${userInfo.id}, code: ${lectureCode}, ID: ${lectureId}`);
   };
 
   return (

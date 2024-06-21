@@ -60,16 +60,23 @@ class Lecture {
     }
 
     /** 강의코드 분반으로 강의 가져오기 */
-    static async findLecture_code(lectureInfo){
-        return new Promise(async (resolve, reject) => {
+    static async findLecture_code(lectureInfo) {
+        return new Promise((resolve, reject) => {
             const { lectureCode, lectureId } = lectureInfo;
+            console.log(`lectureCode: ${lectureCode}, lectureId: ${lectureId}`);
             const query = 'SELECT lecture_PK FROM lecture WHERE lecture_code = ? AND lecture_id = ?';
             connection.query(query, [lectureCode, lectureId], (err, results) => {
-                if(err) return reject(err);
-                resolve(results);
+                if (err) return reject(err);
+                if (results.length > 0) {
+                    console.log(`results: ${results[0].lecture_PK}`);
+                    resolve(results[0].lecture_PK);
+                } else {
+                    resolve(null); // 또는 다른 처리
+                }
             });
         });
     }
+    
 
     /** 강의 찾기 */
     static async findLecture(lectureInfo){
@@ -81,6 +88,7 @@ class Lecture {
                     console.log('Query Error');
                     return reject(err);
                 }
+                console.log(results);
                 resolve(results);
             });
         });
@@ -102,11 +110,12 @@ class Lecture {
     /** 강의 삭제 */
     static async deleteLecture(lectureInfo){
         return new Promise(async (resolve, reject) => {
-            const { building, lectureFloor, lectureCode, lectureId, lectureName } = lectureInfo;
-            const query = 'DELETE FROM lecture WHERE building = ? AND lecture_floor = ? AND lecture_code = ? AND lecture_id = ? AND lecturename = ?';
-            connection.query(query, [building, lectureFloor, lectureCode, lectureId, lectureName], (err, results) => {
+            const { building, lectureFloor, lectureCode, lectureId, lectureRoom } = lectureInfo;
+            const query = 'DELETE FROM lecture WHERE building = ? AND lecture_floor = ? AND lecture_code = ? AND lecture_id = ? AND lecture_room = ?';
+            connection.query(query, [building, lectureFloor, lectureCode, lectureId, lectureRoom], (err, results) => {
                 if(err) return reject(err);
-                resolve(results);
+                // console.log(results);
+                resolve(1);
             });
         });
     }
