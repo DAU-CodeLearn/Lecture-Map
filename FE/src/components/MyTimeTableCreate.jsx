@@ -106,7 +106,7 @@ function MyTimeTableCreate({ timetable }) {
   const mergedTimetable = mergeLectures(timetable);
 
   return (
-    <div className="h-[93vh] w-[90vw] overflow-auto">
+    <div className="h-[80vh] w-[90vw] overflow-auto">
       <StyledTable>
         <thead>
           <tr>
