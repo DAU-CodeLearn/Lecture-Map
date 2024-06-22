@@ -158,30 +158,33 @@ export default function UserTimeTable() {
 
   return (
     <div className="h-[93vh]">
-      <p>개인 시간표 페이지</p>
-      <div>
-        <FormRow>
-          <label htmlFor="lecture_code">강의 코드:</label>
+      <p className="pl-4 pt-4 text-2xl font-bold custom-font text-orange-500">2024년 1학기</p>
+      <div className="flex items-center justify-between pl-5 pt-4 pb-4">
+        <p className="text-5xl">내 시간표</p>
+        <div className="flex items-center mr-96">
+          {/* 약간의 오른쪽 여백 추가 */}
+          <label htmlFor="lecture_code" className="mr-2 text-xl custom-font font-bold">강의 코드:</label>
           <input
             type="text"
             id="lecture_code"
             value={lectureCode}
             onChange={handleLectureCodeChange}
-            className="small"
+            className="small mr-4 rounded border border-gray-300"
           />
-          <label htmlFor="lecture_id">분반:</label>
+          <label htmlFor="lecture_id" className="mr-2 text-xl custom-font font-bold">분반:</label>
           <input
             type="text"
             id="lecture_id"
             value={lectureId}
             onChange={handleLectureIdChange}
-            className="small"
+            className="small mr-4 rounded border border-gray-300"
           />
-          <button onClick={handleInsert}>삽입</button>
-          <button onClick={handleDelete}>삭제</button>
-        </FormRow>
+          <button onClick={handleInsert} className="pl-7 mr-2 text-xl custom-font font-bold">삽입</button>
+          <button onClick={handleDelete} className="pl-5 text-xl custom-font font-bold">삭제</button>
+        </div>
       </div>
       <MyTimeTableCreate timetable={timetable} />
     </div>
   );
+  
 }

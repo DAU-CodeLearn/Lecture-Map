@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { useAuth } from "../AuthContext";
@@ -56,6 +56,22 @@ export default function LoginForm() {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { login } = useAuth();
+
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (e.key === 'Enter') {
+        onClick();
+      }
+    };
+    
+    document.addEventListener('keydown', handleKeyPress);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [id, password]); // Dependencies to ensure the latest state values are used
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "id") {
@@ -64,7 +80,7 @@ export default function LoginForm() {
       setPassword(value);
     }
   };
-  const { login } = useAuth();
+
   const onClick = () => {
     const textbox = {
       id: id,
@@ -88,7 +104,6 @@ export default function LoginForm() {
         if(data != null) {  
           alert("로그인 성공");
           login(data.token); // 로그인 처리
-          //console.log(data);
           navigate("/HadanCampusMap");
         }
         else {

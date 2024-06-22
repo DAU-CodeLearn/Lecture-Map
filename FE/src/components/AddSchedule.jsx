@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import TimeTable from "./TimeTable"; // TimeTable 컴포넌트를 import 합니다.
 import styled from "styled-components";
+import "./styles.css";
 
 const FormRow = styled.div`
   display: flex;
@@ -54,6 +55,7 @@ export default function AddSchedule() {
     setSubmittedRoomNum(roomNum);
     setTimeout(() => setShowTimetable(true), 0);
   };
+
   const handleFetchTimetableUpdate = () => {
     setShowTimetable(false);
     setSubmittedBuild(lectureData.building);
@@ -132,65 +134,93 @@ export default function AddSchedule() {
   };
 
   return (
-    <div>
-      <div>
-        <h3>시간표 추가</h3>
-        <FormRow>
-          <label htmlFor="building">건물:</label>
+    <div className="pl-5 pt-5 pr-5">
+      <div className="pb-5"> {/* "시간표 추가" 섹션에 패딩 추가 */}
+        <h3 className="pb-5 custom-font font-bold text-2xl my-3">시간표 추가</h3>
+        <FormRow className="custom-font text-xl border border-gray-300 rounded-lg p-5">
+          <label htmlFor="building" className="custom-font ">건물</label>
           <input
             type="text"
             id="building"
             name="building"
-            className="small"
+            className="small border border-gray-300 rounded-lg"
             value={lectureData.building}
             onChange={handleInputChange}
           />
-          <label htmlFor="lecture_floor">강의실 층:</label>
+          <label htmlFor="lecture_floor" className="custom-font">강의실 층</label>
           <input
             type="number"
             id="lecture_floor"
             name="lecture_floor"
-            className="small"
+            className="small border border-gray-300 rounded-lg"
             value={lectureData.lecture_floor}
             onChange={handleInputChange}
           />
-          <label htmlFor="lecture_room">강의실 번호:</label>
+          <label htmlFor="lecture_room" className="custom-font">강의실 번호</label>
           <input
             type="text"
             id="lecture_room"
             name="lecture_room"
-            className="small"
+            className="small border border-gray-300 rounded-lg"
             value={lectureData.lecture_room}
             onChange={handleInputChange}
           />
-          <label htmlFor="lecture_code">강의 코드:</label>
+          <label htmlFor="lecture_code" className="custom-font">강의 코드</label>
           <input
             type="text"
             id="lecture_code"
             name="lecture_code"
+            className="border border-gray-300 rounded-lg"
             value={lectureData.lecture_code}
             onChange={handleInputChange}
           />
-          <label htmlFor="lecture_id">분반:</label>
+          <label htmlFor="lecture_id" className="custom-font">분반</label>
           <input
             type="text"
             id="lecture_id"
             name="lecture_id"
+            className="border border-gray-300 rounded-lg"
             value={lectureData.lecture_id}
             onChange={handleInputChange}
           />
-          <label htmlFor="lecturename">강의명:</label>
+          <label htmlFor="lecturename" className="custom-font">강의명</label>
           <input
             type="text"
             id="lecturename"
             name="lecturename"
+            className="border border-gray-300 rounded-lg"
             value={lectureData.lecturename}
             onChange={handleInputChange}
           />
-          <label htmlFor="week">요일:</label>
+          <div className="flex space-x-4 mt-10">
+            <div>
+              <label htmlFor="lecture_start" className="custom-font">시작 교시</label>
+              <input
+                type="number"
+                id="lecture_start"
+                name="lecture_start"
+                className="small border border-gray-300 rounded-lg"
+                value={lectureData.lecture_start}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div>
+              <label htmlFor="lecture_end" className="custom-font">종료 교시</label>
+              <input
+                type="number"
+                id="lecture_end"
+                name="lecture_end"
+                className="small border border-gray-300 rounded-lg"
+                value={lectureData.lecture_end}
+                onChange={handleInputChange}
+              />
+            </div>
+          </div>
+          <label htmlFor="week" className="custom-font mt-10">요일</label>
           <select
             id="week"
             name="week"
+            className="border border-gray-300 rounded-lg mt-10"
             value={lectureData.week}
             onChange={handleInputChange}
           >
@@ -201,49 +231,31 @@ export default function AddSchedule() {
             <option value="금">금</option>
             <option value="토">토</option>
           </select>
-          <label htmlFor="lecture_start">시작 교시:</label>
-          <input
-            type="number"
-            id="lecture_start"
-            name="lecture_start"
-            className="small"
-            value={lectureData.lecture_start}
-            onChange={handleInputChange}
-          />
-          <label htmlFor="lecture_end">종료 교시:</label>
-          <input
-            type="number"
-            id="lecture_end"
-            name="lecture_end"
-            className="small"
-            value={lectureData.lecture_end}
-            onChange={handleInputChange}
-          />
-          <button onClick={handleInsert}>삽입</button>
-          <button onClick={handleDelete}>삭제</button>
+          <button className="rounded-lg px-3 py-1 mt-10 font-bold bg-green-500 text-white border-transparent" onClick={handleInsert}>삽입</button>
+          <button className="rounded-lg px-3 py-1 mt-10 font-bold bg-gray-200 border-transparent" onClick={handleDelete}>삭제</button>
         </FormRow>
       </div>
-
-      <div style={{ marginTop: "20px" }}>
-        <h3>시간표 조회</h3>
-        <FormRow>
-          <label htmlFor="build">건물:</label>
+  
+      <div className="mt-5"> {/* "시간표 조회" 섹션에 패딩 추가 */}
+        <h3 className="pb-5 custom-font font-bold text-2xl my-3">시간표 조회</h3>
+        <FormRow className="custom-font text-xl border border-gray-300 rounded-lg p-5">
+          <label htmlFor="build" className="custom-font">건물</label>
           <input
             type="text"
             id="build"
-            className="small"
+            className="small border border-gray-300 rounded-lg"
             value={build}
             onChange={(e) => setBuild(e.target.value)}
           />
-          <label htmlFor="roomNum">강의실 번호:</label>
+          <label htmlFor="roomNum" className="custom-font">강의실 번호</label>
           <input
             type="text"
             id="roomNum"
-            className="small"
+            className="small border border-gray-300 rounded-lg"
             value={roomNum}
             onChange={(e) => setRoomNum(e.target.value)}
           />
-          <button onClick={handleFetchTimetable}>조회</button>
+          <button className="rounded-lg px-3 py-1 bg-green-500 font-bold text-white border-transparent" onClick={handleFetchTimetable}>조회</button>
         </FormRow>
         {showTimetable && <TimeTable build={submittedBuild} roomNum={submittedRoomNum} />}
       </div>
