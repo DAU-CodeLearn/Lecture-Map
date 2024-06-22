@@ -1,14 +1,26 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
+import styled from "styled-components";
+import { useAuth } from "../AuthContext";
 
 const Container = styled.div`
-  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* 최소 높이를 100vh로 설정하여 화면을 꽉 채움 */
   padding: 20px;
 `;
 
+const FormWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 70vh;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+`;
+
 const Input = styled.input`
-  position: relative;
-  overflow: hidden;
   width: 100%;
   height: 40px;
   margin: 0 0 8px;
@@ -19,7 +31,7 @@ const Input = styled.input`
 `;
 
 const Button = styled.div`
-  font-size: 18px;
+  font-size: 23px;
   font-weight: 700;
   line-height: 49px;
   display: block;
@@ -31,6 +43,7 @@ const Button = styled.div`
   color: #fff;
   border: none;
   border-radius: 0;
+  letter-spacing: 2px;
   background-color: #03c75a;
   ${({ disabled }) =>
     disabled &&
@@ -40,14 +53,30 @@ const Button = styled.div`
 `;
 
 export default function LoginForm() {
-  const [id, setId] = useState('');
-  const [password, setPassword] = useState('');
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const { login } = useAuth();
+
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (e.key === 'Enter') {
+        onClick();
+      }
+    };
+    
+    document.addEventListener('keydown', handleKeyPress);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [id, password]); // Dependencies to ensure the latest state values are used
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === 'id') {
+    if (name === "id") {
       setId(value);
-    } else if (name === 'password') {
+    } else if (name === "password") {
       setPassword(value);
     }
   };
@@ -57,39 +86,55 @@ export default function LoginForm() {
       id: id,
       password: password,
     };
-
-    fetch('http://localhost:8080/login', {
-      method: 'post',
+    fetch("http://localhost:8080/login", {
+      method: "post",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(textbox),
     })
-      .then((response) => response.text())
-      .then((data) => console.log(data))
-      .catch((error) => console.error('Error:', error));
+    .then((res) => {
+      if (res.status === 200) {
+        return res.json();
+      } else {
+        return null;
+      }
+    })
+      .then((data) => {
+        if(data != null) {  
+          alert("로그인 성공");
+          login(data.token); // 로그인 처리
+          navigate("/HadanCampusMap");
+        }
+        else {
+          alert("ID 혹은 패스워드를 확인해주세요.");
+        }
+      })
+      .catch((error) => console.error("Error:", error));
   };
 
   return (
-    <Container className="flex flex-col w-[70vh] text-center justify-center items-center">
-      <div className="flex flex-col w-[70vh] text-center justify-center items-center">
-        <Input
-          id="id"
-          name="id"
-          value={id}
-          onChange={handleChange}
-          placeholder="아이디를 입력해주세요"
-        />
-        <Input
-          id="password"
-          name="password"
-          type="password"
-          value={password}
-          onChange={handleChange}
-          placeholder="비밀번호를 입력해주세요"
-        />
-        <Button onClick={onClick}>로그인</Button>
-      </div>
-    </Container>
+    <div className="flex overflow-hidden h-[93vh] justify-center items-center flex-col">
+      <Container>
+        <FormWrapper>
+          <Input
+            id="id"
+            name="id"
+            value={id}
+            onChange={handleChange}
+            placeholder="아이디를 입력해주세요"
+          />
+          <Input
+            id="password"
+            name="password"
+            type="password"
+            value={password}
+            onChange={handleChange}
+            placeholder="비밀번호를 입력해주세요"
+          />
+          <Button onClick={onClick}>로그인</Button>
+        </FormWrapper>
+      </Container>
+    </div>
   );
 }
