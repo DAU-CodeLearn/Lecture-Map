@@ -88,7 +88,6 @@ export default function LoginForm() {
         if(data != null) {  
           alert("로그인 성공");
           login(data.token); // 로그인 처리
-          //console.log(data);
           navigate("/HadanCampusMap");
         }
         else {
@@ -96,6 +95,12 @@ export default function LoginForm() {
         }
       })
       .catch((error) => console.error("Error:", error));
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      onClick();
+    }
   };
 
   return (
@@ -108,6 +113,7 @@ export default function LoginForm() {
             value={id}
             onChange={handleChange}
             placeholder="아이디를 입력해주세요"
+            onKeyPress={handleKeyPress}
           />
           <Input
             id="password"
@@ -116,6 +122,7 @@ export default function LoginForm() {
             value={password}
             onChange={handleChange}
             placeholder="비밀번호를 입력해주세요"
+            onKeyPress={handleKeyPress}
           />
           <Button onClick={onClick}>로그인</Button>
         </FormWrapper>
