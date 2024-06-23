@@ -25,9 +25,8 @@ Lecture-Map을 통해 사용자는 다음과 같은 기능을 활용할 수 있�
 - 손쉽게 강의실 시간표를 조회하고 관리
 - 현재 시간 기준으로 빈 강의실 검색
 - 개인 시간표 저장 및 조회
-![image](https://github.com/DAU-CodeLearn/Lecture-Map/assets/126743685/3e675e92-ca70-44cb-af3c-3d2b9e239281)
 
-  <img src="https://github.com/DAU-CodeLearn/Lecture-Map/assets/126743685/ec55ed5a-3e26-471c-a3b6-578e252e2b2b" width="600" height="300">
+  ![image](https://github.com/DAU-CodeLearn/Lecture-Map/assets/126743685/3e675e92-ca70-44cb-af3c-3d2b9e239281)
   
   - 캠퍼스 지도 화면
     
