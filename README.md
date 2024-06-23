@@ -30,22 +30,17 @@ Lecture-Map을 통해 사용자는 다음과 같은 기능을 활용할 수 있�
   
   - 캠퍼스 지도 화면
     
-  <img src="https://github.com/DAU-CodeLearn/Lecture-Map/assets/126743685/3660fde0-82b5-4e75-9560-5b09d97591a2" width="600" height="300">
+  ![image](https://github.com/DAU-CodeLearn/Lecture-Map/assets/126743685/279e7248-3155-4373-859d-17f347645e23)
   
   - 빈 강의실 시각화
     
-  <img src="https://github.com/DAU-CodeLearn/Lecture-Map/assets/126743685/5a99b213-8816-4fec-8823-8494a57b0f5a" width="600" height="300">
+  ![image](https://github.com/DAU-CodeLearn/Lecture-Map/assets/126743685/3d54f18d-a015-49e4-845f-75dcbd072423)
   
   - 강의실 시간표
-    
-  <img src="https://github.com/DAU-CodeLearn/Lecture-Map/assets/126743685/c71e3178-8403-4682-859d-fe19e748573d" width="600" height="300">
+
+  ![image](https://github.com/DAU-CodeLearn/Lecture-Map/assets/126743685/7fd33b03-b558-4731-ba44-c8396465b7eb)
   
   - 개인 시간표
-    
-  <img src="https://github.com/DAU-CodeLearn/Lecture-Map/assets/126743685/f995c61b-2f15-4e0d-854a-a3a7e8d9c6ea" width="600" height="300">
-  
-  - 관리자 시간표
-
 
 ### 향후 계획
 
