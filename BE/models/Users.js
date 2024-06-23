@@ -27,7 +27,6 @@ class User {
       const query = 'INSERT INTO users (student_id, user_id, password, username) VALUES (?, ?, ?, ?)';
       connection.query(query, [studentId, id, hashedPassword, name], (err, results) => {
         if (err) {
-          console.log(`쿼리 오류 : ${studentId} ${id} ${password} ${name}`);
           return reject(err);
         }
         resolve({ studentId, id, name });
