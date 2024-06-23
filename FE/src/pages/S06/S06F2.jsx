@@ -6,7 +6,8 @@ export default function S06Sixth() {
   const [timetable, setTimetable] = useState([]);
   const [currentPeriod, setCurrentPeriod] = useState(0);
   const [today, setToday] = useState("");
-  const tmp_peroid = 5;
+  const tmp_peroid = 10;
+  const tmp_week = "수";
 
   useEffect(() => {
     function getCurrentPeriod() {
@@ -46,8 +47,8 @@ export default function S06Sixth() {
     setToday(day);
 
     const buildnum = "S06"; // Update this to reflect the current building number
-    const floor = 6; // Update this to reflect the current floor
-
+    const floor = 2; // Update this to reflect the current floor
+    
     fetch("http://localhost:8080/classroomtime", {
       method: "POST",
       headers: {
@@ -69,21 +70,28 @@ export default function S06Sixth() {
   }, []);
 
   const isHighlighted = (room) => {
+
     return timetable.some(
       (lecture) =>
         lecture.lecture_room === room &&
-        lecture.lecture_start <= tmp_peroid &&
-        lecture.lecture_end >= tmp_peroid &&
-        lecture.week === tmp_week
+        lecture.lecture_start <= currentPeriod &&
+        lecture.lecture_end >= currentPeriod &&
+        lecture.week === today
     );
   };
 
   const roomLinks = [
     { room: "0203", top: "14.5%", left: "39.2%", width: "2.3%", height: "3%" },
-    { room: "0205", top: "14.9%", left: "51.7%", width: "2.5%", height: "3.5%" },
+    {
+      room: "0205",
+      top: "14.9%",
+      left: "51.7%",
+      width: "2.5%",
+      height: "3.5%",
+    },
     { room: "0207", top: "15.1%", left: "66.8%", width: "2.6%", height: "3%" },
     { room: "0225", top: "31.6%", left: "28%", width: "3%", height: "3%" },
-    { room: "0226", top: "31.6%", left: "18.2%", width: "3%", height: "3%" }
+    { room: "0226", top: "31.6%", left: "18.2%", width: "3%", height: "3%" },
   ];
 
   return (
@@ -99,8 +107,10 @@ export default function S06Sixth() {
             left: left,
             width: width,
             height: height,
-            backgroundColor: isHighlighted(room) ? "rgba(255, 0, 0, 0.5)" : "rgba(0, 255, 0, 0.5)",
-            cursor: "pointer"
+            backgroundColor: isHighlighted(room)
+              ? "rgba(255, 0, 0, 0.5)"
+              : "rgba(0, 255, 0, 0.5)",
+            cursor: "pointer",
           }}
         />
       ))}

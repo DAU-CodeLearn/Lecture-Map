@@ -6,7 +6,8 @@ export default function S06Sixth() {
   const [timetable, setTimetable] = useState([]);
   const [currentPeriod, setCurrentPeriod] = useState(0);
   const [today, setToday] = useState("");
-  const tmp_peroid = 5;
+  const tmp_peroid = 10;
+  const tmp_week = "수";
 
   useEffect(() => {
     function getCurrentPeriod() {
@@ -46,7 +47,7 @@ export default function S06Sixth() {
     setToday(day);
 
     const buildnum = "S06"; // Update this to reflect the current building number
-    const floor = 6; // Update this to reflect the current floor
+    const floor = 5; // Update this to reflect the current floor
 
     fetch("http://localhost:8080/classroomtime", {
       method: "POST",
@@ -72,9 +73,9 @@ export default function S06Sixth() {
     return timetable.some(
       (lecture) =>
         lecture.lecture_room === room &&
-        lecture.lecture_start <= tmp_peroid &&
-        lecture.lecture_end >= tmp_peroid &&
-        lecture.week === tmp_week
+        lecture.lecture_start <= currentPeriod &&
+        lecture.lecture_end >= currentPeriod &&
+        lecture.week === today
     );
   };
 
@@ -82,14 +83,31 @@ export default function S06Sixth() {
     { room: "0501", top: "16.4%", left: "27.7%", width: "2.7%", height: "3%" },
     { room: "0504", top: "16.4%", left: "44.9%", width: "2.7%", height: "3%" },
     { room: "0505", top: "16.4%", left: "49.7%", width: "2.7%", height: "3%" },
-    { room: "0506", top: "16.6%", left: "52.8%", width: "2.3%", height: "2.5%" },
+    {
+      room: "0506",
+      top: "16.6%",
+      left: "52.8%",
+      width: "2.3%",
+      height: "2.5%",
+    },
     { room: "0507", top: "16.4%", left: "57.1%", width: "2.7%", height: "3%" },
     { room: "0508", top: "16.4%", left: "65.1%", width: "2.7%", height: "3%" },
     { room: "0509", top: "57.7%", left: "80.9%", width: "2.7%", height: "3%" },
     { room: "0521", top: "33.2%", left: "62.2%", width: "2.7%", height: "3%" },
-    { room: "0528", top: "32.9%", left: "27.5%", width: "3.2%", height: "3.2%" },
-    { room: "0529", top: "32.9%", left: "18.2%", width: "3.2%", height: "3.2%" },
-    
+    {
+      room: "0528",
+      top: "32.9%",
+      left: "27.5%",
+      width: "3.2%",
+      height: "3.2%",
+    },
+    {
+      room: "0529",
+      top: "32.9%",
+      left: "18.2%",
+      width: "3.2%",
+      height: "3.2%",
+    },
   ];
 
   return (
@@ -105,8 +123,10 @@ export default function S06Sixth() {
             left: left,
             width: width,
             height: height,
-            backgroundColor: isHighlighted(room) ? "rgba(255, 0, 0, 0.5)" : "rgba(0, 255, 0, 0.5)",
-            cursor: "pointer"
+            backgroundColor: isHighlighted(room)
+              ? "rgba(255, 0, 0, 0.5)"
+              : "rgba(0, 255, 0, 0.5)",
+            cursor: "pointer",
           }}
         />
       ))}

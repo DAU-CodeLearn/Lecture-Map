@@ -48,7 +48,6 @@ export default function S06Sixth() {
 
     const buildnum = "S06"; // Update this to reflect the current building number
     const floor = 6; // Update this to reflect the current floor
-
     fetch("http://localhost:8080/classroomtime", {
       method: "POST",
       headers: {
@@ -57,13 +56,12 @@ export default function S06Sixth() {
       body: JSON.stringify({
         build: buildnum,
         floor: floor,
-        week: tmp_week,
-        time: tmp_peroid,
+        week: day,
+        time: period,
       }),
     })
       .then((res) => res.json())
       .then((data) => {
-        //console.log("Fetched data:", data);
         setTimetable(data.lectures || []);
       })
       .catch((error) => console.error("Error:", error));
@@ -73,9 +71,9 @@ export default function S06Sixth() {
     return timetable.some(
       (lecture) =>
         lecture.lecture_room === room &&
-        lecture.lecture_start <= tmp_peroid &&
-        lecture.lecture_end >= tmp_peroid &&
-        lecture.week === tmp_week
+        lecture.lecture_start <= currentPeriod &&
+        lecture.lecture_end >= currentPeriod &&
+        lecture.week === today
     );
   };
 
@@ -105,8 +103,10 @@ export default function S06Sixth() {
             left: left,
             width: width,
             height: height,
-            backgroundColor: isHighlighted(room) ? "rgba(255, 0, 0, 0.5)" : "rgba(0, 255, 0, 0.5)",
-            cursor: "pointer"
+            backgroundColor: isHighlighted(room)
+              ? "rgba(255, 0, 0, 0.5)"
+              : "rgba(0, 255, 0, 0.5)",
+            cursor: "pointer",
           }}
         />
       ))}

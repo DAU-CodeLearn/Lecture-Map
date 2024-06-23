@@ -6,8 +6,8 @@ export default function S06Sixth() {
   const [timetable, setTimetable] = useState([]);
   const [currentPeriod, setCurrentPeriod] = useState(0);
   const [today, setToday] = useState("");
-  const tmp_peroid = 5;
-
+  const tmp_peroid = 10;
+  const tmp_week = "수";
   useEffect(() => {
     function getCurrentPeriod() {
       const now = new Date();
@@ -46,7 +46,7 @@ export default function S06Sixth() {
     setToday(day);
 
     const buildnum = "S06"; // Update this to reflect the current building number
-    const floor = 6; // Update this to reflect the current floor
+    const floor = 3; // Update this to reflect the current floor
 
     fetch("http://localhost:8080/classroomtime", {
       method: "POST",
@@ -72,9 +72,9 @@ export default function S06Sixth() {
     return timetable.some(
       (lecture) =>
         lecture.lecture_room === room &&
-        lecture.lecture_start <= tmp_peroid &&
-        lecture.lecture_end >= tmp_peroid &&
-        lecture.week === tmp_week
+        lecture.lecture_start <= currentPeriod &&
+        lecture.lecture_end >= currentPeriod &&
+        lecture.week === today
     );
   };
 
@@ -85,7 +85,6 @@ export default function S06Sixth() {
     { room: "0320", top: "32.7%", left: "43.4%", width: "3%", height: "3.2%" },
     { room: "0321", top: "32.7%", left: "32.4%", width: "3%", height: "3.2%" },
     { room: "0322", top: "32.7%", left: "19.8%", width: "3%", height: "3.2%" },
-  
   ];
 
   return (
@@ -101,8 +100,10 @@ export default function S06Sixth() {
             left: left,
             width: width,
             height: height,
-            backgroundColor: isHighlighted(room) ? "rgba(255, 0, 0, 0.5)" : "rgba(0, 255, 0, 0.5)",
-            cursor: "pointer"
+            backgroundColor: isHighlighted(room)
+              ? "rgba(255, 0, 0, 0.5)"
+              : "rgba(0, 255, 0, 0.5)",
+            cursor: "pointer",
           }}
         />
       ))}
