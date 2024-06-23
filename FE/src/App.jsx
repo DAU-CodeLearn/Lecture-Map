@@ -4,8 +4,6 @@ import { AuthProvider } from "./AuthContext";
 import IndexLayout from "./pages/layout/IndexLayout";
 import IndexPage from "./pages/IndexPage";
 import MyPage from "./pages/MyPage";
-import PageThree from "./pages/PageThree";
-import PageFour from "./pages/PageFour";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import HadanCampusMap from "./pages/HadanCampusMap";
@@ -138,8 +136,6 @@ const router = createBrowserRouter([
         ],
       },
       { path: "/MyTimeTable", element: <UserTimeTable /> },
-      { path: "/three", element: <PageThree /> },
-      { path: "/four", element: <PageFour /> },
       {
         path: "/HadanCampusMap/S06",
         element: <S06Layout />,
