@@ -26,15 +26,19 @@ Lecture-Map을 통해 사용자는 다음과 같은 기능을 활용할 수 있�
 - 현재 시간 기준으로 빈 강의실 검색
 - 개인 시간표 저장 및 조회
 
-  <center><img src="https://github.com/DAU-CodeLearn/Lecture-Map/assets/126743685/ec55ed5a-3e26-471c-a3b6-578e252e2b2b" width="400" height="200"></center>
+  <center><img src="https://github.com/DAU-CodeLearn/Lecture-Map/assets/126743685/ec55ed5a-3e26-471c-a3b6-578e252e2b2b" width="800" height="400"></center>
     - 캠퍼스 지도 화면
-  <center><img src="https://github.com/DAU-CodeLearn/Lecture-Map/assets/126743685/3660fde0-82b5-4e75-9560-5b09d97591a2" width="400" height="200"></center>
+    
+  <center><img src="https://github.com/DAU-CodeLearn/Lecture-Map/assets/126743685/3660fde0-82b5-4e75-9560-5b09d97591a2" width="800" height="400"></center>
     - 빈 강의실 시각화
-  <center><img src="https://github.com/DAU-CodeLearn/Lecture-Map/assets/126743685/5a99b213-8816-4fec-8823-8494a57b0f5a" width="400" height="200"></center>
+    
+  <center><img src="https://github.com/DAU-CodeLearn/Lecture-Map/assets/126743685/5a99b213-8816-4fec-8823-8494a57b0f5a" width="800" height="400"></center>
     - 강의실 시간표
-  <center><img src="https://github.com/DAU-CodeLearn/Lecture-Map/assets/126743685/c71e3178-8403-4682-859d-fe19e748573d" width="400" height="200"></center>
+    
+  <center><img src="https://github.com/DAU-CodeLearn/Lecture-Map/assets/126743685/c71e3178-8403-4682-859d-fe19e748573d" width="800" height="400"></center>
     - 개인 시간표
-  <center><img src="https://github.com/DAU-CodeLearn/Lecture-Map/assets/126743685/f995c61b-2f15-4e0d-854a-a3a7e8d9c6ea" width="400" height="200"></center>
+    
+  <center><img src="https://github.com/DAU-CodeLearn/Lecture-Map/assets/126743685/f995c61b-2f15-4e0d-854a-a3a7e8d9c6ea" width="800" height="400"></center>
     - 관리자 시간표
 
 
