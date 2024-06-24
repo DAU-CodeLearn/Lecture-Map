@@ -18,6 +18,14 @@ Lecture-Map 프로젝트는 동아대학교 학생들과 교직원의 학습 및
 - **인터랙티브 맵**: 사용자가 캠퍼스 지도를 직관적으로 탐색할 수 있도록 구현하였습니다.
 - **데이터베이스 연동**: 데이터베이스를 활용하여 개인화된 시간표 저장 및 조회 기능을 제공하였습니다.
 
+![image](https://github.com/DAU-CodeLearn/Lecture-Map/assets/126743685/7f19cc74-c1b5-479c-aac5-4e6b0872c761)
+
+- 페이지 흐름도
+
+![image](https://github.com/DAU-CodeLearn/Lecture-Map/assets/126743685/44131b4d-29cd-4d36-a088-27f51478cad2)
+
+- DataBase 모델
+
 ### 실제 사용
 
 Lecture-Map을 통해 사용자는 다음과 같은 기능을 활용할 수 있습니다:
